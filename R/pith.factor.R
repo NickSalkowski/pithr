@@ -1,0 +1,39 @@
+#' Generate a \code{pith} class object from a \code{\link[base]{factor}}
+#'
+#' @param x A factor vector.
+#' @param freq Logical. If \code{TRUE}, frequencies are plotted instead of proportions.
+#' @param plot Logical. If TRUE, the \code{pith} is plotted.
+#' @param xname Character string describing the factor vector.
+#' @param histargs List. Ignored.
+#' @param ... Additional arguments passed to \code{\link{plot.pith}}
+#' @method pith factor
+#' @export
+
+pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {
+  
+  if (is.null(xname)) {
+    xname <- deparse(substitute(x))
+  }
+  
+  x <- addNA(x)
+  
+  ft <- table(x)
+  pt <- as.numeric(prop.table(ft))
+  ft <- as.integer(ft)
+  
+  xlev <- levels(x)
+  na_index <- which(is.na(xlev))
+  
+  structure(
+    list(
+      list(
+        xname = xname,
+        freq = list(
+          x = xlev[-na_index],
+          xfreq = ft[-na_index],
+          xprop = pt[-na_index],
+          NAfreq = ft[na_index],
+          NAprop = pt[na_index]),
+        hist = NULL)),
+    class = c("pith", "list"))
+}
