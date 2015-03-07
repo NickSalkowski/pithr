@@ -1,7 +1,7 @@
 #' Plot a \code{pith} class object
 #' 
 #' @param x A pith.
-#' @param freq Logical.  If \code{TRUE}, freqencies will be plotted instead of proportions or densities.
+#' @param freq Logical.  If \code{TRUE}, frequencies will be plotted instead of proportions or densities.
 #' @param main Character string. Main title, default is \code{x$xname}
 #' @param xlab Character string. X-axis label.
 #' @param ylab Character string. Y-axis label.
@@ -20,7 +20,7 @@ plot.pith <- function(
   col = NULL, 
   border = NULL, 
   ...) {
-  
+
   if (length(x) > 1) {
     for (i in seq_along(x)) {
       plot(
@@ -96,7 +96,7 @@ plot.pith <- function(
         }
        
         if (is.null(ylab)) {
-          ylab <- ifelse(freq, "Freqency", "Density")
+          ylab <- ifelse(freq, "Frequency", "Density")
         }
         
         brange <- range(xhist$hist$breaks)

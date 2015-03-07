@@ -4,7 +4,7 @@
 \alias{pith.logical}
 \title{Generate a \code{pith} class object from a \code{\link[base]{logical}}}
 \usage{
-\method{pith}{factor}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{logical}(x, freq = TRUE, plot = TRUE, xname = NULL,
   histargs = list(), ...)
 }
 \arguments{

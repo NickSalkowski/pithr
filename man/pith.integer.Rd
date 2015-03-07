@@ -4,7 +4,7 @@
 \alias{pith.integer}
 \title{Generate a \code{pith} class object from a \code{\link[base]{integer}}}
 \usage{
-\method{pith}{factor}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{integer}(x, freq = TRUE, plot = TRUE, xname = NULL,
   histargs = list(), ...)
 }
 \arguments{

@@ -6,7 +6,7 @@
 #' @param xname Character string describing the factor vector.
 #' @param histargs List. Ignored.
 #' @param ... Additional arguments passed to \code{\link{plot.pith}}
-#' @method pith factor
+#' @method pith integer
 #' @export
 
 pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {

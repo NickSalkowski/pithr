@@ -10,7 +10,7 @@
 \arguments{
 \item{x}{A pith.}
 
-\item{freq}{Logical.  If \code{TRUE}, freqencies will be plotted instead of proportions or densities.}
+\item{freq}{Logical.  If \code{TRUE}, frequencies will be plotted instead of proportions or densities.}
 
 \item{main}{Character string. Main title, default is \code{x$xname}}
 
