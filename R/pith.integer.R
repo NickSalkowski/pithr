@@ -13,5 +13,10 @@ pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
   }
+  
+  if (length(unique(x)) > 1000) {
+    pith(as.numeric(x), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
+  } else {
   pith.factor(factor(x, levels = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE))), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
+  }
 }
