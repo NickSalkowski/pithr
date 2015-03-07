@@ -24,7 +24,7 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
   
   xhist$xname <- xname
   
-  structure(
+  npith <- structure(
       list(
         list(
           xname = xname,
@@ -34,4 +34,10 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
             NAfreq = sum(is.na(x)),
             NAprop = mean(is.na(x))))),
     class = c("pith", "list"))
+  
+  if (plot) {
+    plot(npith, freq = freq, ...)
+  }
+  
+  invisible(npith)
 }

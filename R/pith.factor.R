@@ -24,7 +24,7 @@ pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = li
   xlev <- levels(x)
   na_index <- which(is.na(xlev))
   
-  structure(
+  fpith <- structure(
     list(
       list(
         xname = xname,
@@ -36,4 +36,10 @@ pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = li
           NAprop = pt[na_index]),
         hist = NULL)),
     class = c("pith", "list"))
+  
+  if (plot) {
+    plot(fpith, freq = freq, ...)
+  }
+  
+  invisible(fpith)
 }

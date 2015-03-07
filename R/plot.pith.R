@@ -135,7 +135,10 @@ plot.pith <- function(
              border = border[1], 
              ...)
         
-        axis(side = 1, at = pretty(brange))
+        xticks <- pretty(brange)
+        xticks <- xticks[which(xticks > brange[1] - 0.03 * diff(brange))]
+        xticks <- xticks[which(xticks < brange[2] + 0.03 * diff(brange))]
+        axis(side = 1, at = xticks)
 
         if (xhist$NAfreq != 0L) {
           lines(nahist,
