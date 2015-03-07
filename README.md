@@ -4,7 +4,7 @@ Quick graphical data summaries!
 
 ### What is pithr?
 
-**pithr** is an R package built to generate quick graphical data summaries.  That is, to generate the graphical equivalent of the **summary()** function.  These summaries are called *piths*.
+**pithr** is an R package built to generate quick graphical data summaries.  That is, to generate the graphical equivalent of the **summary()** function.  These summaries are called *piths*. **pithr** is intended for exploratory data analysis, or just checking that your data manipulation worked.
 
 ### Piths?
 
