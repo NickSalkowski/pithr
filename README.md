@@ -54,3 +54,19 @@ pith(X, freq = FALSE)
 XNA <- c(X, rep(NA, 20))
 pith(XNA, freq = FALSE)
 ```
+
+### **dplyr** functionality
+
+**pithr** has a special function **pselect()** that first runs **dplyr::select()**, then **pith()**, then *returns the data.frame*.  Because the data.frame (or tbl or tbl_df) is returned, the chain of operations can continue.
+
+```
+library(dplyr)
+iris %>% tbl_df %>% pselect(Sepal.Length, Sepal.Width, .pith = list(freq = FALSE, col = "red"))
+```
+Which is similar to:
+```
+library(magrittr)
+iris %>% tbl_df %>% select(Sepal.Length, Sepal.Width) %T>% pith(freq = FALSE, col = "red")
+```
+
+Note, I haven't figured out how to make **pith()** pay attention to any grouping variables in a tbl_df, yet.

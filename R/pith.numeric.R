@@ -19,7 +19,7 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
   histargs$plot <- FALSE
   
   xhist <- do.call(
-    hist,
+    graphics::hist,
     histargs)
   
   xhist$xname <- xname

@@ -8,4 +8,7 @@ Maintainer: Nick Salkowski <nicksalkowskiphd@gmail.com>
 Description: Piths are simple summaries of data which include factor frequencies or a histogram as well as a frequency of NA, if applicable.
 URL: http://github.com/NickSalkowski/pithr
 BugReports: http://github.com/NickSalkowski/pithr/issues
+Imports: 
+  graphics,
+  dplyr
 License: GPL>=2

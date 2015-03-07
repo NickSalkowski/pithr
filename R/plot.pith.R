@@ -78,7 +78,7 @@ plot.pith <- function(
           pborder <- c(pborder, NA, border[2])
         }
         
-        barplot(
+        graphics::barplot(
           height = pheight,
           names.arg = pnames,
           main = main,
