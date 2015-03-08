@@ -8,6 +8,13 @@
 #' @param ... Additional arguments passed to \code{\link{plot.pith}}
 #' @method pith integer
 #' @export
+#' @return A \code{pith} class object, invisibly.
+#' @examples
+#' pith(rpois(50, 5))
+#' pith(rpois(50, 500))
+#' @details
+#' If the range of integers in \code{x} is greater than 25, then \code{x} is treated as a numeric
+#' vector, otherwise \code{x} is treated as a factor vector.
 
 pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {
   if (is.null(xname)) {
@@ -17,6 +24,6 @@ pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
   if (diff(range(x, na.rm = TRUE)) > 50) {
     pith(as.numeric(x), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
   } else {
-  pith.factor(factor(x, levels = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE))), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
+  pith(factor(x, levels = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE))), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
   }
 }

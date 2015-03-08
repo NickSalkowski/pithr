@@ -8,6 +8,12 @@
 #' @param ... Additional arguments passed to \code{\link{plot.pith}}
 #' @method pith factor
 #' @export
+#' @return A \code{pith} class object, invisibly.
+#' @examples
+#' X <- factor(sample(
+#'   c(LETTERS[c(1, 2, 2, 3, 3, 3)], NA), 
+#'   size = 50, replace = TRUE))
+#' pith(X)
 
 pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {
   
@@ -26,15 +32,14 @@ pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = li
   
   fpith <- structure(
     list(
-      list(
-        xname = xname,
-        freq = list(
-          x = xlev[-na_index],
-          xfreq = ft[-na_index],
-          xprop = pt[-na_index],
-          NAfreq = ft[na_index],
-          NAprop = pt[na_index]),
-        hist = NULL)),
+      xname = xname,
+      freq = list(
+        x = xlev[-na_index],
+        xfreq = ft[-na_index],
+        xprop = pt[-na_index],
+        NAfreq = ft[na_index],
+        NAprop = pt[na_index]),
+      hist = NULL),
     class = c("pith", "list"))
   
   if (plot) {

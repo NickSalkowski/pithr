@@ -5,7 +5,7 @@
 \title{Plot a \code{pith} class object}
 \usage{
 \method{plot}{pith}(x, freq = TRUE, main = NULL, xlab = NULL,
-  ylab = NULL, col = NULL, border = NULL, ...)
+  ylab = NULL, col = c("#328097", "#A46575"), border = NA, las = 1, ...)
 }
 \arguments{
 \item{x}{A pith.}
@@ -22,7 +22,12 @@
 
 \item{border}{Character vector.  Up to two border colors may be specified, the first for the nonmissing data bars and the second for the NA bar.  If only one color is specified it will be used for all bars.}
 
+\item{las}{numeric in {0, 1, 2, 3}. Axis label style.  See \code{\link[graphics]{par}}}
+
 \item{...}{Additional plot parameters.}
+}
+\value{
+\code{NULL}, invisibly.
 }
 \description{
 Plot a \code{pith} class object

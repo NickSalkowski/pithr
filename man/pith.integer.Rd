@@ -20,7 +20,18 @@
 
 \item{...}{Additional arguments passed to \code{\link{plot.pith}}}
 }
+\value{
+A \code{pith} class object, invisibly.
+}
 \description{
 Generate a \code{pith} class object from a \code{\link[base]{integer}}
+}
+\details{
+If the range of integers in \code{x} is greater than 25, then \code{x} is treated as a numeric
+vector, otherwise \code{x} is treated as a factor vector.
+}
+\examples{
+pith(rpois(50, 5))
+pith(rpois(50, 500))
 }
 

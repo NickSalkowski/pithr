@@ -20,7 +20,16 @@
 
 \item{...}{Additional arguments passed to \code{\link{plot.pith}}}
 }
+\value{
+A \code{pith} class object, invisibly.
+}
 \description{
 Generate a \code{pith} class object from a \code{\link[base]{numeric}}
+}
+\examples{
+X <- rnorm(80)
+pith(X)
+XX <- c(X, rep(NA, 20))
+pith(XX)
 }
 

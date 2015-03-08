@@ -1,4 +1,4 @@
-#' Generate a \code{pith} class object from a \code{\link[base]{data.frame}}
+#' Generate a \code{pithlist} class object from a \code{\link[base]{data.frame}}
 #'
 #' @param x A data.frame.
 #' @param freq Logical. If \code{TRUE}, frequencies are plotted instead of proportions.
@@ -8,6 +8,9 @@
 #' @param ... Additional arguments passed to \code{\link{plot.pith}}
 #' @method pith data.frame
 #' @export
+#' @return A \code{pithlist} class object, invisibly.
+#' @examples
+#' pith(iris)
 
 pith.data.frame <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {
   if (is.null(xname)) {

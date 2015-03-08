@@ -20,7 +20,16 @@
 
 \item{...}{Additional arguments passed to \code{\link{plot.pith}}}
 }
+\value{
+A \code{pith} class object, invisibly.
+}
 \description{
 Generate a \code{pith} class object from a \code{\link[base]{character}}
+}
+\examples{
+X <- sample(
+  c(LETTERS[c(1, 2, 2, 3, 3, 3)], NA),
+  size = 50, replace = TRUE)
+pith(X)
 }
 

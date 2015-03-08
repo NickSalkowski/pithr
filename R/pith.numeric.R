@@ -8,6 +8,12 @@
 #' @param ... Additional arguments passed to \code{\link{plot.pith}}
 #' @method pith numeric
 #' @export
+#' @return A \code{pith} class object, invisibly.
+#' @examples
+#' X <- rnorm(80)
+#' pith(X)
+#' XX <- c(X, rep(NA, 20))
+#' pith(XX)
 
 pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {
   
@@ -25,14 +31,13 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
   xhist$xname <- xname
   
   npith <- structure(
-      list(
-        list(
-          xname = xname,
-          freq = NULL,
-          hist = list(
-            hist = xhist,
-            NAfreq = sum(is.na(x)),
-            NAprop = mean(is.na(x))))),
+    list(
+      xname = xname,
+      freq = NULL,
+      hist = list(
+        hist = xhist,
+        NAfreq = sum(is.na(x)),
+        NAprop = mean(is.na(x)))),
     class = c("pith", "list"))
   
   if (plot) {
