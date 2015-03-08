@@ -4,11 +4,11 @@ Quick graphical data summaries!
 
 ### What is pithr?
 
-**pithr** is an R package built to generate quick graphical data summaries.  That is, to generate the graphical equivalent of the **summary()** function.  These summaries are called *piths*. **pithr** is intended for exploratory data analysis, or just checking that your data manipulation worked.
+**pithr** is an R package built to generate quick graphical data summaries.  That is, to generate the graphical equivalent of the **summary()** function.  These summaries are called *piths*. **pithr** is intended for exploratory data analysis, debugging, or just checking that your data manipulation worked.
 
 ### Piths?
 
-*Pith*, when used as a noun, can mean *the essence*.  *Pith*, when used as a verb, can mean *to remove the pith*.  Since pithr is built to provide descriptive summary plots of data, the vocabulary seemed appropriate.  And *pith* is just four letters long, and I don't like unnecessary typing.
+*Pith*, when used as a noun, can mean *the essence of something*.  *Pith*, when used as a verb, can mean *to remove the pith*.  Since pithr is built to provide descriptive summary plots of data, the vocabulary seemed appropriate.  And *pith* is just four letters long, and I don't like unnecessary typing.
 
 ### Installing **pithr**
 
@@ -43,6 +43,19 @@ If you want the **pith** object without the plot, just set **plot** equal to **F
 ```
 iris_pith <- pith(iris, plot = FALSE)
 ```
+### **pithy()**
+
+**pithy()** is a function that generates the same plots as **pith()** (as long as plot = TRUE, of course), but instead of returning a **pith**, it returns the original data.  So, pithy may actually be more useful, since it can be added expressions without changing the results.  This could be useful when using chained expressions with the **dplyr** or **magrittr** packages.
+
+```
+head(pithy(cars))
+library(dplyr)
+iris %>%
+  tbl_df %>%
+  select(Sepal.Length, Species) %>%
+  pithy %>%
+  filter(Species == 'virginica')   
+```
 
 ### **NA** Values
 
@@ -57,16 +70,26 @@ pith(XNA, freq = FALSE)
 
 ### **dplyr** functionality
 
-**pithr** has a special function **pselect()** that first runs **dplyr::select()**, then **pith()**, then *returns the data.frame*.  Because the data.frame (or tbl or tbl_df) is returned, the chain of operations can continue.
+**pithr** provides a set of **dplyr** helper functions for **pithy()**.  **filter_pithy()** filters a data set, generates the plots, then returns the original pre-filter data set.  **select_pithy()**, **mutate_pithy()**, and **transmute_pithy** do the same thing for **select()**, **mutate()**, and **transmute()**, repectively.  These functions are intended to facilitate inserting short plotting detours into a chained **dplyr** expression, without changing the overall result.  Oh, and since I'm not a big fan of typing, **f_pithy()**, **s_pithy()**, **m_pithy()**, and **t_pithy()** do the same things, but with less typing.
 
 ```
-library(dplyr)
-iris %>% tbl_df %>% pselect(Sepal.Length, Sepal.Width, .pith = list(freq = FALSE, col = "red"))
+iris %>%
+  tbl_df %>%
+  s_pithy(Petal.Width) %>%
+  t_pithy(SL2 = Sepal.Length^2)
 ```
 Which is similar to:
+
 ```
 library(magrittr)
-iris %>% tbl_df %>% select(Sepal.Length, Sepal.Width) %T>% pith(freq = FALSE, col = "red")
+iris %>% tbl_df %T>% {
+  select(., Petal.Width) %>%
+  pith} %T>% {
+  transmute(., SL2 = Sepal.Length^2) %>% pith}
 ```
 
 Note, I haven't figured out how to make **pith()** pay attention to any grouping variables in a tbl_df, yet.
+
+### Base Graphics???
+
+**ggplot2** is great, but I'm a lot more familiar with using base graphics, so I used base graphics.  Since **pithr** is meant for generating plots for *exploration* and *debugging*, beauty wasn't a high priority.
