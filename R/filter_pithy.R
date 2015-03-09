@@ -4,7 +4,7 @@
 #' @param ... Additional arguments to pass to \code{\link[dplyr]{filter}}
 #' @param .pithargs List of arguments to pass to pithy.
 #' @return Unaltered \code{\.data}
-#' @describeIn filter_pithy Just like f_pithy, but with more typing.
+#' @rdname filter_pithy
 #' @seealso \code{\link{pithy}}, \code{\link{select_pithy}}, \code{\link{mutate_pithy}}, \code{\link{transmute_pithy}}
 #' @export
 #' @examples
@@ -34,6 +34,6 @@ filter_pithy <- function(.data, ..., .pithargs = list()) {
   return(.data)
 }
 
-#' @describeIn filter_pithy Just like filter_pithy, but with less typing.
+#' @rdname filter_pithy
 #' @export
 f_pithy <- filter_pithy

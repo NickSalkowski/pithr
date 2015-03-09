@@ -4,7 +4,7 @@
 #' @param ... Additional arguments to pass to \code{\link[dplyr]{transmute}}
 #' @param .pithargs List of arguments to pass to pithy.
 #' @return Unaltered \code{\.data}
-#' @describeIn transmute_pithy Just like t_pithy, but with more typing.
+#' @rdname transmute_pithy
 #' @seealso \code{\link{pithy}}, \code{\link{filter_pithy}}, \code{\link{select_pithy}}, \code{\link{mutate_pithy}}
 #' @export
 #' @examples
@@ -27,6 +27,6 @@ transmute_pithy <- function(.data, ..., .pithargs = list()) {
   return(.data)
 }
 
-#' @describeIn transmute_pithy Just like transmute_pithy, but with less typing.
+#' @rdname transmute_pithy
 #' @export
 t_pithy <- transmute_pithy

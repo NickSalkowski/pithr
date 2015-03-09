@@ -1,7 +1,7 @@
 Package: pithr
 Type: Package
 Title: Produce quick graphical data summaries!
-Version: 0.2
+Version: 0.2.1
 Date: 2015-03-07
 Author: Nick Salkowski
 Maintainer: Nick Salkowski <nicksalkowskiphd@gmail.com>

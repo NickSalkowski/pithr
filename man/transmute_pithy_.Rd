@@ -22,12 +22,6 @@ Unaltered \code{\.data}
 \description{
 Transmute variables, generate a \code{pith}, then return the original data set
 }
-\section{Functions}{
-\itemize{
-\item \code{transmute_pithy_}: Just like t_pithy_, but with more typing.
-
-\item \code{t_pithy_}: Just like transmute_pithy_, but with less typing.
-}}
 \examples{
 head(transmute_pithy_(iris, "SL2 = Sepal.Length^2"))
 head(t_pithy_(iris, "Wide_Petal = Petal.Width > mean(Petal.Width)"))

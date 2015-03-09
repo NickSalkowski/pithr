@@ -22,12 +22,6 @@ Unaltered \code{\.data}
 \description{
 Select variables, generate a \code{pith}, then return the original data set
 }
-\section{Functions}{
-\itemize{
-\item \code{select_pithy_}: Just like s_pithy_, but with more typing.
-
-\item \code{s_pithy_}: Just like select_pithy_, but with less typing.
-}}
 \examples{
 head(select_pithy_(iris, "Sepal.Length"))
 head(s_pithy_(iris, "Petal.Length", "Petal.Width"))

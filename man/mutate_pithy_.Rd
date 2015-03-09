@@ -22,12 +22,6 @@ Unaltered \code{\.data}
 \description{
 Mutate variables, generate a \code{pith}, then return the original data set
 }
-\section{Functions}{
-\itemize{
-\item \code{mutate_pithy_}: Just like m_pithy_, but with more typing.
-
-\item \code{m_pithy_}: Just like mutate_pithy_, but with less typing.
-}}
 \examples{
 head(mutate_pithy_(iris["Sepal.Length"], "SL2 = Sepal.Length^2"))
 head(m_pithy_(iris["Petal.Width"], "Wide_Petal = Petal.Width > mean(Petal.Width)"))

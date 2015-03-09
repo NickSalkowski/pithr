@@ -22,12 +22,6 @@ Unaltered \code{\.data}
 \description{
 Filter rows, generate a \code{pith}, then return the original data set
 }
-\section{Functions}{
-\itemize{
-\item \code{filter_pithy}: Just like f_pithy, but with more typing.
-
-\item \code{f_pithy}: Just like filter_pithy, but with less typing.
-}}
 \examples{
 head(filter_pithy(iris, Species == "setosa"))
 head(f_pithy(iris[, c(3,5)], Petal.Length > 2))
