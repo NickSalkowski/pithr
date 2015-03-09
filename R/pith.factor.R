@@ -32,14 +32,15 @@ pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = li
   
   fpith <- structure(
     list(
-      xname = xname,
-      freq = list(
-        x = xlev[-na_index],
-        xfreq = ft[-na_index],
-        xprop = pt[-na_index],
-        NAfreq = ft[na_index],
-        NAprop = pt[na_index]),
-      hist = NULL),
+      list(
+        xname = xname,
+        freq = list(
+          x = xlev[-na_index],
+          xfreq = ft[-na_index],
+          xprop = pt[-na_index],
+          NAfreq = ft[na_index],
+          NAprop = pt[na_index]),
+        hist = NULL)),
     class = c("pith", "list"))
   
   if (plot) {

@@ -27,14 +27,16 @@ plot.pith <- function(
   col <- rep(col, length.out = 2)
   border <- rep(border, length.out = 2)
   
-  xname <- x$xname
+  for (i in seq_along(x)) {
+  
+  xname <- x[[i]]$xname
   
   if (is.null(main)) {
     main <- xname
   }
   
-  xfreq <- x$freq
-  xhist <- x$hist
+  xfreq <- x[[i]]$freq
+  xhist <- x[[i]]$hist
   
   if (!is.null(xfreq)) {
     
@@ -136,6 +138,7 @@ plot.pith <- function(
             border = border[2])
       axis(side = 1, at = brange[2] + 2 * bdiff, labels = "NA", tick = FALSE, las = las)
     }
+  }
   }
   invisible(NULL)
 }
