@@ -12,15 +12,15 @@
 #' head(f_pithy(iris[, c(3,5)], Petal.Length > 2))
 
 filter_pithy <- function(.data, ..., .pithargs = list()) {
-
-  if (is.null(.pithargs$xname)) {
-    xname <- deparse(substitute(.data))
+  
+  xname <- if (is.null(.pithargs$xname)) {
+    deparse(substitute(.data))
+  } else {
+    .pithargs$xname
   }
   
   filterargs <- deparse(substitute(list(...)))
   filterargs <- paste0("filter(", xname, ", ", substr(filterargs, 6, nchar(filterargs)))
-  
-  
   
   xname <- paste(filterargs, xname, sep = ":\n")
   

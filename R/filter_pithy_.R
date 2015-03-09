@@ -13,14 +13,14 @@
 
 filter_pithy_ <- function(.data, ..., .pithargs = list()) {
   
-  if (is.null(.pithargs$xname)) {
-    xname <- deparse(substitute(.data))
+  xname <- if (is.null(.pithargs$xname)) {
+    deparse(substitute(.data))
+  } else {
+    .pithargs$xname
   }
   
   filterargs <- deparse(substitute(list(...)))
   filterargs <- paste0("filter_(", xname, ", ", substr(filterargs, 6, nchar(filterargs)))
-  
-  
   
   xname <- paste(filterargs, xname, sep = ":\n")
   
