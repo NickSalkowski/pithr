@@ -2,7 +2,7 @@
 % Please edit documentation in R/pith.data.frame.R
 \name{pith.data.frame}
 \alias{pith.data.frame}
-\title{Generate a \code{pithlist} class object from a \code{\link[base]{data.frame}}}
+\title{Generate a \code{pith} class object from a \code{\link[base]{data.frame}}}
 \usage{
 \method{pith}{data.frame}(x, freq = TRUE, plot = TRUE, xname = NULL,
   histargs = list(), ...)
@@ -24,7 +24,7 @@
 A \code{pithlist} class object, invisibly.
 }
 \description{
-Generate a \code{pithlist} class object from a \code{\link[base]{data.frame}}
+Generate a \code{pith} class object from a \code{\link[base]{data.frame}}
 }
 \examples{
 pith(iris)

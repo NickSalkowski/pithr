@@ -1,4 +1,4 @@
-#' Generate a \code{pithlist} class object from a \code{\link[base]{data.frame}}
+#' Generate a \code{pith} class object from a \code{\link[base]{data.frame}}
 #'
 #' @param x A data.frame.
 #' @param freq Logical. If \code{TRUE}, frequencies are plotted instead of proportions.

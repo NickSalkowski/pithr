@@ -21,20 +21,22 @@ plot.pith <- function(
   ylab = NULL, 
   col = c("#328097", "#A46575"), 
   border = NA, 
-  las = 1,
+  las = NULL,
   ...) {
   
   col <- rep(col, length.out = 2)
   border <- rep(border, length.out = 2)
   
-  xname <- x$xname
+  for (i in seq_along(x)) {
+  
+  xname <- x[[i]]$xname
   
   if (is.null(main)) {
     main <- xname
   }
   
-  xfreq <- x$freq
-  xhist <- x$hist
+  xfreq <- x[[i]]$freq
+  xhist <- x[[i]]$hist
   
   if (!is.null(xfreq)) {
     
@@ -60,12 +62,12 @@ plot.pith <- function(
         xfreq$NAprop
       }
       pheight <- c(pheight, NA, naheight)
-      pnames <- c(pnames, NA, "NA")
+      pnames <- c(pnames, NA, NA)
       pcol <- c(pcol, NA, col[2])
       pborder <- c(pborder, NA, border[2])
     }
     
-    graphics::barplot(
+    bp <- graphics::barplot(
       height = pheight,
       names.arg = pnames,
       main = main,
@@ -73,11 +75,19 @@ plot.pith <- function(
       ylab = ylab,
       col = pcol,
       border = pborder,
-      las = las,
+      las = if (is.null(las)) ifelse(max(nchar(pnames), na.rm = TRUE) > 3, 2, 1) else las,
       ...)
+    
+    if (xfreq$NAfreq != 0L) {
+      axis(side = 1, at = max(bp), labels = "NA", tick = FALSE)
+    }
   }
   
   if (!is.null(xhist)) {
+    
+    if (is.null(las)) {
+      las <- 1
+    }
     
     if (is.null(xlab)) {
       xlab <- ""
@@ -136,6 +146,7 @@ plot.pith <- function(
             border = border[2])
       axis(side = 1, at = brange[2] + 2 * bdiff, labels = "NA", tick = FALSE, las = las)
     }
+  }
   }
   invisible(NULL)
 }

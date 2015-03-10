@@ -1,4 +1,4 @@
-#' Generate a \code{pithlist} class object from a \code{\link[base]{list}}
+#' Generate a \code{pith} class object from a \code{\link[base]{list}}
 #'
 #' @param x A list.
 #' @param freq Logical. If \code{TRUE}, frequencies are plotted instead of proportions.
@@ -22,9 +22,9 @@ pith.list <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list
   xname <- paste0(xname, "[[", ifelse(names(x) == "", seq_along(x), paste0("'",names(x), "'")), "]]")
   
   for (i in seq_along(x)) {
-    lpith[[i]] <- pith(x[[i]], freq = freq, plot = plot, xname = xname[i], histargs = histargs, ...)
+    lpith[[i]] <- pith(x[[i]], freq = freq, plot = plot, xname = xname[i], histargs = histargs, ...)[[1]]
   }
   
   
-  invisible(structure(lpith, class = c("pithlist", "list")))
+  invisible(structure(lpith, class = c("pith", "list")))
 }

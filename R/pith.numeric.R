@@ -32,12 +32,13 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
   
   npith <- structure(
     list(
-      xname = xname,
-      freq = NULL,
-      hist = list(
-        hist = xhist,
-        NAfreq = sum(is.na(x)),
-        NAprop = mean(is.na(x)))),
+      list(
+        xname = xname,
+        freq = NULL,
+        hist = list(
+          hist = xhist,
+          NAfreq = sum(is.na(x)),
+          NAprop = mean(is.na(x))))),
     class = c("pith", "list"))
   
   if (plot) {

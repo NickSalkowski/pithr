@@ -2,7 +2,7 @@
 % Please edit documentation in R/pith.list.R
 \name{pith.list}
 \alias{pith.list}
-\title{Generate a \code{pithlist} class object from a \code{\link[base]{list}}}
+\title{Generate a \code{pith} class object from a \code{\link[base]{list}}}
 \usage{
 \method{pith}{list}(x, freq = TRUE, plot = TRUE, xname = NULL,
   histargs = list(), ...)
@@ -24,7 +24,7 @@
 A \code{pithlist} object (a list of \code{pith} objects), invisibly.
 }
 \description{
-Generate a \code{pithlist} class object from a \code{\link[base]{list}}
+Generate a \code{pith} class object from a \code{\link[base]{list}}
 }
 \examples{
 pith(list(A = rnorm(50), B = rpois(50, 5)))
