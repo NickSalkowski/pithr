@@ -19,7 +19,7 @@ plot.pith <- function(
   main = NULL, 
   xlab = NULL, 
   ylab = NULL, 
-  col = c("#328097", "#A46575"), 
+  col = c("#619CFF", "#F8766D"), 
   border = NA, 
   las = 1,
   ...) {

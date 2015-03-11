@@ -23,6 +23,25 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
   
   xfinite <- x[which(is.finite(x))]
   
+  if (length(xfinite) == 0L) {
+    pargs <- list(...)
+    pargs$x <- factor(x)
+    pargs$freq <- freq
+    pargs$plot <- plot
+    pargs$xname <- xname
+    pargs$histargs <- histargs
+    if ("col" %in% names(pargs)) {
+      pargs$col <- rep(pargs$col, length.out = 2)[2]
+    } else {
+      pargs$col <- "#F8766D"
+    }
+    
+    do.call(
+      pith,
+      pargs)
+
+    } else {
+  
   histargs$x <- xfinite
   histargs$plot <- FALSE
   
@@ -50,4 +69,5 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
   }
   
   invisible(npith)
+  }
 }
