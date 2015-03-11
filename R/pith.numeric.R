@@ -21,7 +21,9 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
     xname <- deparse(substitute(x))
   }
   
-  histargs$x <- x
+  xfinite <- x[which(is.finite(x))]
+  
+  histargs$x <- xfinite
   histargs$plot <- FALSE
   
   xhist <- do.call(
@@ -37,8 +39,10 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
         freq = NULL,
         hist = list(
           hist = xhist,
-          NAfreq = sum(is.na(x)),
-          NAprop = mean(is.na(x))))),
+          NA_freq = sum(is.na(x)),
+          NA_prop = mean(is.na(x)),
+          Inf_freq = sum(is.infinite(x)),
+          Inf_prop = mean(is.infinite(x))))),
     class = c("pith", "list"))
   
   if (plot) {

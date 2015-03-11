@@ -36,10 +36,10 @@ pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = li
         xname = xname,
         freq = list(
           x = xlev[-na_index],
-          xfreq = ft[-na_index],
-          xprop = pt[-na_index],
-          NAfreq = ft[na_index],
-          NAprop = pt[na_index]),
+          x_freq = ft[-na_index],
+          x_prop = pt[-na_index],
+          NA_freq = ft[na_index],
+          NA_prop = pt[na_index]),
         hist = NULL)),
     class = c("pith", "list"))
   

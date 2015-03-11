@@ -50,7 +50,7 @@
 #' head(mutate_pithy(cars, ratio = dist / speed))
 #' 
 #' # transmute_pithy
-#' head(cars, ratio = dist / speed))
+#' head(transmute_pithy(cars, ratio = dist / speed))
 #' @name dplyr_pithy
 NULL
 
