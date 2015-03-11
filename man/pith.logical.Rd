@@ -5,7 +5,7 @@
 \title{Generate a \code{pith} class object from a \code{\link[base]{logical}}}
 \usage{
 \method{pith}{logical}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  histargs = list(), ...)
+  breaks = "Sturges", ...)
 }
 \arguments{
 \item{x}{A logical vector.}
@@ -16,7 +16,7 @@
 
 \item{xname}{Character string describing the factor vector.}
 
-\item{histargs}{List. Ignored.}
+\item{breaks}{Passed to \code{\link[graphics]{hist}}.}
 
 \item{...}{Additional arguments passed to \code{\link{plot.pith}}}
 }

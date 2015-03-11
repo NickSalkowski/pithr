@@ -5,7 +5,7 @@
 \title{Generate a \code{pith} class object from a \code{\link[base]{numeric}}}
 \usage{
 \method{pith}{numeric}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  histargs = list(), ...)
+  breaks = "Sturges", ...)
 }
 \arguments{
 \item{x}{A factor vector.}
@@ -16,7 +16,7 @@
 
 \item{xname}{Character string describing the factor vector.}
 
-\item{histargs}{List of additional arguments ot pass to \code{\link[graphics]{hist}}.}
+\item{breaks}{Passed to \code{\link[graphics]{hist}}.}
 
 \item{...}{Additional arguments passed to \code{\link{plot.pith}}}
 }

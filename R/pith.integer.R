@@ -4,7 +4,7 @@
 #' @param freq Logical. If \code{TRUE}, frequencies are plotted instead of proportions.
 #' @param plot Logical. If TRUE, the \code{pith} is plotted.
 #' @param xname Character string describing the factor vector.
-#' @param histargs List. Ignored.
+#' @param breaks Passed to \code{\link[graphics]{hist}}.
 #' @param ... Additional arguments passed to \code{\link{plot.pith}}
 #' @method pith integer
 #' @export
@@ -16,18 +16,18 @@
 #' If the range of integers in \code{x} is greater than 25, then \code{x} is treated as a numeric
 #' vector, otherwise \code{x} is treated as a factor vector.
 
-pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {
+pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
   }
   
   if (all(is.na(x))) {
-    pith(factor(x), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
+    pith(factor(x), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
   } else {
     if (diff(range(x, na.rm = TRUE)) > 25) {
-      pith(as.numeric(x), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
+      pith(as.numeric(x), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
       } else {
-        pith(factor(x, levels = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE))), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
+        pith(factor(x, levels = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE))), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
       }
   }
 }

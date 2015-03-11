@@ -4,7 +4,7 @@
 #' @param freq Logical. If \code{TRUE}, frequencies are plotted instead of proportions.
 #' @param plot Logical. If TRUE, the \code{pith} is plotted.
 #' @param xname Character string describing the factor vector.
-#' @param histargs List of additional arguments ot pass to \code{\link[graphics]{hist}}.
+#' @param breaks Passed to \code{\link[graphics]{hist}}.
 #' @param ... Additional arguments passed to \code{\link{plot.pith}}
 #' @method pith numeric
 #' @export
@@ -15,7 +15,7 @@
 #' XX <- c(X, rep(NA, 20))
 #' pith(XX)
 
-pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {
+pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
   
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
@@ -29,7 +29,7 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
     pargs$freq <- freq
     pargs$plot <- plot
     pargs$xname <- xname
-    pargs$histargs <- histargs
+    pargs$breaks <- breaks
     if ("col" %in% names(pargs)) {
       pargs$col <- rep(pargs$col, length.out = 2)[2]
     } else {
@@ -39,35 +39,37 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
     do.call(
       pith,
       pargs)
-
-    } else {
-  
-  histargs$x <- xfinite
-  histargs$plot <- FALSE
-  
-  xhist <- do.call(
-    graphics::hist,
-    histargs)
-  
-  xhist$xname <- xname
-  
-  npith <- structure(
-    list(
+    
+  } else {
+    
+    histargs <- list(
+      x = xfinite,
+      plot = FALSE,
+      breaks = breaks)
+    
+    xhist <- do.call(
+      graphics::hist,
+      histargs)
+    
+    xhist$xname <- xname
+    
+    npith <- structure(
       list(
-        xname = xname,
-        freq = NULL,
-        hist = list(
-          hist = xhist,
-          NA_freq = sum(is.na(x)),
-          NA_prop = mean(is.na(x)),
-          Inf_freq = sum(is.infinite(x)),
-          Inf_prop = mean(is.infinite(x))))),
-    class = c("pith", "list"))
-  
-  if (plot) {
-    plot(npith, freq = freq, ...)
-  }
-  
-  invisible(npith)
+        list(
+          xname = xname,
+          freq = NULL,
+          hist = list(
+            hist = xhist,
+            NA_freq = sum(is.na(x)),
+            NA_prop = mean(is.na(x)),
+            Inf_freq = sum(is.infinite(x)),
+            Inf_prop = mean(is.infinite(x))))),
+      class = c("pith", "list"))
+    
+    if (plot) {
+      plot(npith, freq = freq, ...)
+    }
+    
+    invisible(npith)
   }
 }

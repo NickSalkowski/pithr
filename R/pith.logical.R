@@ -4,7 +4,7 @@
 #' @param freq Logical. If \code{TRUE}, frequencies are plotted instead of proportions.
 #' @param plot Logical. If TRUE, the \code{pith} is plotted.
 #' @param xname Character string describing the factor vector.
-#' @param histargs List. Ignored.
+#' @param breaks Passed to \code{\link[graphics]{hist}}.
 #' @param ... Additional arguments passed to \code{\link{plot.pith}}
 #' @method pith logical
 #' @export
@@ -14,9 +14,9 @@
 #'   size = 50, replace = TRUE)
 #' pith(X)
 
-pith.logical <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = list(), ...) {
+pith.logical <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
   }
-  pith(factor(x, levels = c("TRUE", "FALSE")), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
+  pith(factor(x, levels = c("TRUE", "FALSE")), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
 }
