@@ -160,7 +160,7 @@ plot.pith <- function(
         axis(
           side = 1, 
           at = 0.5 * (check_xleft + check_xright), 
-          labels = c("\U00b1Inf", "NA")[which_checks], 
+          labels = c("\U00b1\nInf", "NA\nNaN")[which_checks], 
           tick = FALSE, 
           las = las)
       }
