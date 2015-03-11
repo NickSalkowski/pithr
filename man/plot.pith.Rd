@@ -5,8 +5,7 @@
 \title{Plot a \code{pith} class object}
 \usage{
 \method{plot}{pith}(x, freq = TRUE, main = NULL, xlab = NULL,
-  ylab = NULL, col = c("#328097", "#A46575"), border = NA, las = NULL,
-  ...)
+  ylab = NULL, col = c("#328097", "#A46575"), border = NA, las = 1, ...)
 }
 \arguments{
 \item{x}{A pith.}

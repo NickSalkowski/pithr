@@ -21,7 +21,7 @@ plot.pith <- function(
   ylab = NULL, 
   col = c("#328097", "#A46575"), 
   border = NA, 
-  las = NULL,
+  las = 1,
   ...) {
   
   col <- rep(col, length.out = 2)
@@ -62,24 +62,31 @@ plot.pith <- function(
           xfreq$NA_prop
         }
         pheight <- c(pheight, NA, naheight)
-        pnames <- c(pnames, NA, NA)
+        pnames <- c(pnames, NA, "NA")
         pcol <- c(pcol, NA, col[2])
         pborder <- c(pborder, NA, border[2])
       }
       
-      bp <- graphics::barplot(
+      graphics::barplot(
         height = pheight,
         names.arg = pnames,
+        xaxt = 'n',
         main = main,
         xlab = xlab,
         ylab = ylab,
         col = pcol,
         border = pborder,
-        las = if (is.null(las)) ifelse(max(nchar(pnames), na.rm = TRUE) > 3, 2, 1) else las,
+        las = las,
         ...)
       
-      if (xfreq$NA_freq != 0L) {
-        axis(side = 1, at = max(bp), labels = "NA", tick = FALSE)
+      for (j in seq_along(pnames)) {
+        s_width <- strwidth(pnames[j])
+        axis(
+          side = 1,
+          at   = 1.2 * j - 0.5,
+          tick = FALSE,
+          labels = pnames[j],
+          cex.axis = ifelse(s_width <= 1.0, par("cex"), 1.0 * par("cex") / s_width))
       }
     }
     

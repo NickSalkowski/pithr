@@ -21,7 +21,7 @@ pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, histargs = l
     xname <- deparse(substitute(x))
   }
   
-  if (diff(range(x, na.rm = TRUE)) > 50) {
+  if (diff(range(x, na.rm = TRUE)) > 25) {
     pith(as.numeric(x), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
   } else {
   pith(factor(x, levels = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE))), freq = freq, plot = plot, xname = xname, histargs = histargs, ...)
