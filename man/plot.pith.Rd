@@ -5,7 +5,8 @@
 \title{Plot a \code{pith} class object}
 \usage{
 \method{plot}{pith}(x, freq = TRUE, main = NULL, xlab = NULL,
-  ylab = NULL, col = c("#619CFF", "#F8766D"), border = NA, las = 1, ...)
+  ylab = NULL, col = c("#619CFF", "#F8766D"), border = NA, las = 1,
+  shrink = TRUE, ...)
 }
 \arguments{
 \item{x}{A pith.}
@@ -23,6 +24,9 @@
 \item{border}{Character vector.  Up to two border colors may be specified, the first for the nonmissing data bars and the second for the NA bar.  If only one color is specified it will be used for all bars.}
 
 \item{las}{numeric in {0, 1, 2, 3}. Axis label style.  See \code{\link[graphics]{par}}}
+
+\item{shrink}{Logical.  If TRUE, factor labels will shrink to fit the width of the bar.  Ignored
+if \code{las} is either 2 or 3.}
 
 \item{...}{Additional plot parameters.}
 }

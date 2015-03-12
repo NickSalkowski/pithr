@@ -8,6 +8,8 @@
 #' @param col Character vector.  Up to two fill colors may be specified, the first for the nonmissing data bars and the second for the NA bar.  If only one color is specified it will be used for all bars.
 #' @param border Character vector.  Up to two border colors may be specified, the first for the nonmissing data bars and the second for the NA bar.  If only one color is specified it will be used for all bars.
 #' @param las numeric in {0, 1, 2, 3}. Axis label style.  See \code{\link[graphics]{par}}
+#' @param shrink Logical.  If TRUE, factor labels will shrink to fit the width of the bar.  Ignored 
+#' if \code{las} is either 2 or 3.
 #' @param ... Additional plot parameters.
 #' @method plot pith
 #' @export
@@ -22,6 +24,7 @@ plot.pith <- function(
   col = c("#619CFF", "#F8766D"), 
   border = NA, 
   las = 1,
+  shrink = TRUE,
   ...) {
   
   col <- rep(col, length.out = 2)
@@ -67,7 +70,7 @@ plot.pith <- function(
         pborder <- c(pborder, NA, border[2])
       }
       
-      graphics::barplot(
+      bp <- graphics::barplot(
         height = pheight,
         names.arg = pnames,
         xaxt = 'n',
@@ -79,14 +82,21 @@ plot.pith <- function(
         las = las,
         ...)
       
-      for (j in seq_along(pnames)) {
-        s_width <- strwidth(pnames[j])
-        axis(
-          side = 1,
-          at   = 1.2 * j - 0.5,
-          tick = FALSE,
-          labels = pnames[j],
-          cex.axis = ifelse(s_width <= 1.0, par("cex"), 1.0 * par("cex") / s_width))
+      if (shrink & las %in% c(0, 1)) {
+        for (j in seq_along(pnames)) {
+          s_width <- strwidth(pnames[j])
+          axis(
+            side = 1,
+            at   = 1.2 * j - 0.5,
+            tick = FALSE,
+            labels = pnames[j],
+            cex.axis = ifelse(
+              s_width <= 1.0, 
+              par("cex"), 
+              par("cex") / s_width))
+        }
+      } else {
+        axis(side = 1, at = bp, labels = pnames, las = las, tick = FALSE)
       }
     }
     
