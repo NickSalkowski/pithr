@@ -2,22 +2,160 @@
 % Please edit documentation in R/pith.R
 \name{pith}
 \alias{pith}
-\title{Generate a \code{pith} class object}
+\alias{pith.array}
+\alias{pith.character}
+\alias{pith.data.frame}
+\alias{pith.factor}
+\alias{pith.integer}
+\alias{pith.list}
+\alias{pith.logical}
+\alias{pith.matrix}
+\alias{pith.numeric}
+\title{Piths}
 \usage{
 pith(x, ...)
+
+\method{pith}{factor}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
+
+\method{pith}{character}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
+
+\method{pith}{integer}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
+
+\method{pith}{logical}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
+
+\method{pith}{numeric}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
+
+\method{pith}{matrix}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
+
+\method{pith}{array}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
+
+\method{pith}{list}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
+
+\method{pith}{data.frame}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", ...)
 }
 \arguments{
-\item{x}{An object.}
+\item{x}{A factor vector, character vector, integer vector,
+logical vector, numeric vector, matrix, array, list or data frame.}
 
-\item{...}{Additional arguments.}
+\item{...}{Additional arguments passed to \code{\link{plot.pith}}}
+
+\item{plot}{Logical. If TRUE, the \code{pith} is plotted.}
+
+\item{xname}{Character string describing the factor vector.}
+
+\item{breaks}{Passed to \code{\link[graphics]{hist}}.}
 }
 \value{
-A \code{pith} or \code{pithlist} class object.
+A \code{pith} class object.  A pith class object is a list.  Each element of the list
+is a 3-element list, with elements:
+\itemize{
+  \item \code{xname}
+  \item \code{freq}
+  \item \code{hist}
+  }
+The \code{xname} element is the name used to identify the data when the pith is plotted.
+
+If the data is a character, factor, logical, or short-ranged integer, the \code{freq} element
+will be a list with 5 elements:
+\itemize{
+  \item x a vector of the levels of the data
+  \item x_freq a vector of the frequencies of each level
+  \item x_prop a vector of the proportions of each level
+  \item NA_freq the frequency of \code{NA}
+  \item NA_prop the proportion of \code{NA}
+}
+Otherwise, the \code{freq} element will be \code{NULL}.
+
+If the data is double-precision numeric or a long-ranged integer, the \code{hist} element will
+be a list with 5 elements:
+\itemize{
+  \item hist a histogram class object
+  \item NA_freq the frequency of \code{NA} or \code{NaN}
+  \item NA_prop the proportion of \code{NA} or \code{NaN}
+  \item Inf_freq the frequency of \code{Inf} or \code{-Inf}
+  \item Inf_prop the proportion of \code{Inf} or \code{-Inf}
+  }
+Otherwise, the \code{hist} element will be \code{NULL}.
 }
 \description{
-Generate a \code{pith} class object
+The generic function \code{pith} computes a summary plot (or plots) of
+the given data.  If \code{plot = TRUE}, a \code{pith} class object is plotted before
+it is returned.
+}
+\details{
+On definition of \code{pith} is "the essence of something", and \code{pith} is
+also a verb that means "to remove the pith".  So, the purpose of \code{pith} is to
+"remove the essence" of some collection of data, and generate a plot.
+
+All piths are based on the frequencies of data values, including \code{NA} values.
+A double-precision numeric pith will be a histogram.  Factor, character, and logical
+piths will be barplots of frequencies.  Integer piths will produce barplots when the
+range of integer values is 25 or less, and histograms otherwise.
+
+Matrices and arrays are collapsed into vectors, since there is no clear way to
+infer which dimensions are most meaningful for data summaries.
+
+List elements are summarized separately, and data.frame columns are summarized separately.
+}
+\examples{
+set.seed(1234)
+# character
+X_character <- sample(
+  c(LETTERS[c(1, 2, 2, 3, 3, 3)], NA),
+  size = 50, replace = TRUE)
+pith(X_character)
+
+# factor
+X_factor <- factor(X_character)
+pith(X_factor)
+
+# integer
+pith(rpois(50, 5))
+pith(rpois(50, 500))
+
+# logical
+X_logical <- sample(c(TRUE, FALSE, NA)[c(1, 1, 2, 3)],
+  size = 50, replace = TRUE)
+pith(X_logical)
+
+# numeric
+X_numeric <- rnorm(80)
+pith(X_numeric)
+XNA_numeric <- c(X_numeric, rep(NA, 15), rep(Inf, 5))
+pith(XNA_numeric)
+
+# matrix
+X_char_matrix <- matrix(sample(c("A", "B", "B", "C", NA),
+  size = 100, replace = TRUE),
+  ncol = 10)
+pith(X_char_matrix)
+X_int_matrix <- matrix(rpois(200, 500), ncol = 10)
+pith(X_int_matrix)
+
+# array
+X_char_array <- array(sample(c("A", "B", "B", "C", NA),
+  size = 100, replace = TRUE),
+  c(5, 4, 5))
+pith(X_char_array)
+X_int_array <- array(rpois(200, 500), c(25, 4, 2))
+pith(X_int_array)
+
+# list
+pith(list(A = rnorm(50), B = rpois(50, 5)))
+
+# data.frame
+pith(datasets::cars)
 }
 \seealso{
-\code{\link{pith.factor}}, \code{\link{pith.character}}, \code{\link{pith.logical}}, \code{\link{pith.integer}}, \code{\link{pith.numeric}}, \code{\link{pith.list}}, \code{\link{pith.data.frame}}
+\code{\link{plot.pith}}
 }
 
