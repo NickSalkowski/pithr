@@ -17,6 +17,10 @@
 #' \code{\link[dplyr]{filter}} or 
 #' \code{\link[dplyr]{filter_}},
 #' @param .pithargs List of arguments to pass to \code{\link{pithy}}.
+#' @return \code{.data}, unmodified.
+#' @seealso \code{\link[dplyr]{filter}}, \code{\link{pithy}}, 
+#' \code{\link{select_pithy}}, \code{\link{mutate_pithy}}, 
+#' \code{\link{transmute_pithy}}
 #' @examples
 #' # filter_pithy -----
 #' head(filter_pithy(cars, speed > 10))

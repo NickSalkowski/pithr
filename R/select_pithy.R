@@ -17,6 +17,10 @@
 #' \code{\link[dplyr]{select}} or 
 #' \code{\link[dplyr]{select_}},
 #' @param .pithargs List of arguments to pass to \code{\link{pithy}}.
+#' @return \code{.data}, unmodified.
+#' @seealso \code{\link[dplyr]{select}}, \code{\link{pithy}}, 
+#' \code{\link{filter_pithy}}, \code{\link{mutate_pithy}}, 
+#' \code{\link{transmute_pithy}}
 #' @examples
 #' # select_pithy -----
 #' head(select_pithy(cars, dist))
