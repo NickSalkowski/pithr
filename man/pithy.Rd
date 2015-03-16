@@ -2,7 +2,7 @@
 % Please edit documentation in R/pithy.R
 \name{pithy}
 \alias{pithy}
-\title{Generate a \code{\link{pith}}, but return the original \code{x}}
+\title{Generate a Pith, but return the original \code{x}}
 \usage{
 pithy(x, xname = NULL, ...)
 }
@@ -17,7 +17,8 @@ pithy(x, xname = NULL, ...)
 \code{x}, unaltered.
 }
 \description{
-Generate a \code{\link{pith}}, but return the original \code{x}
+\code{pithy} calls \code{\link{pith}}, but returns
+the original data, rather than a \code{pith} class object.
 }
 \examples{
 X <- sample(
@@ -25,5 +26,10 @@ X <- sample(
   size = 50, replace = TRUE)
 pithy(X)
 head(pithy(iris))
+}
+\seealso{
+\code{\link{pith}}, \code{\link{filter_pithy}},
+\code{\link{select_pithy}}, \code{\link{mutate_pithy}},
+\code{\link{transmute_pithy}}
 }
 

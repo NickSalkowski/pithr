@@ -1,9 +1,15 @@
-#' Generate a \code{\link{pith}}, but return the original \code{x}
+#' @title Generate a Pith, but return the original \code{x}
+#' 
+#' @description \code{pithy} calls \code{\link{pith}}, but returns 
+#' the original data, rather than a \code{pith} class object.
 #'
 #' @param x An object.
 #' @param xname Character string describing the factor vector.
 #' @param ... Additional arguments passed to \code{\link{pith}}
 #' @return \code{x}, unaltered.
+#' @seealso \code{\link{pith}}, \code{\link{filter_pithy}}, 
+#' \code{\link{select_pithy}}, \code{\link{mutate_pithy}}, 
+#' \code{\link{transmute_pithy}}
 #' @export
 #' @examples
 #' X <- sample(
