@@ -1,4 +1,4 @@
-#' Plot a \code{pith} class object
+#' @title Plot a \code{pith} class object
 #' 
 #' @param x A pith.
 #' @param freq Logical.  If \code{TRUE}, frequencies will be plotted instead of proportions or densities.
