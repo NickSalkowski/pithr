@@ -1,42 +1,50 @@
 #' @title Piths
-#' @aliases pith.factor pith.character pith.logical pith.integer pith.matrix pith.array pith.numeric pith.list pith.data.frame
+#' @aliases pith.factor pith.character pith.logical pith.integer 
+#' pith.matrix pith.array pith.numeric pith.list pith.data.frame
 #' 
-#' @description The generic function \code{pith} computes a summary plot (or plots) of 
-#' the given data.  If \code{plot = TRUE}, a \code{pith} class object is plotted before 
-#' it is returned.
+#' @description The generic function \code{pith} computes a summary 
+#' plot (or plots) of the given data.  If \code{plot = TRUE}, a 
+#' \code{pith} class object is plotted before it is returned.
 #' 
 #' @details
-#' On definition of \code{pith} is "the essence of something", and \code{pith} is 
-#' also a verb that means "to remove the pith".  So, the purpose of \code{pith} is to 
-#' "remove the essence" of some collection of data, and generate a plot.  
+#' On definition of \code{pith} is "the essence of something", and 
+#' \code{pith} is also a verb that means "to remove the pith".  So, 
+#' the purpose of \code{pith} is to "remove the essence" of some 
+#' collection of data, and generate a plot.  
 #' 
-#' All piths are based on the frequencies of data values, including \code{NA} values. 
-#' A double-precision numeric pith will be a histogram.  Factor, character, and logical 
-#' piths will be barplots of frequencies.  Integer piths will produce barplots when the 
-#' range of integer values is 25 or less, and histograms otherwise.  
+#' All piths are based on the frequencies of data values, including 
+#' \code{NA} values. A double-precision numeric pith will be a histogram.  
+#' Factor, character, and logical piths will be barplots of frequencies.  
+#' Integer piths will produce barplots when the range of integer values 
+#' is 25 or less, and histograms otherwise.  
 #' 
-#' Matrices and arrays are collapsed into vectors, since there is no clear way to 
-#' infer which dimensions are most meaningful for data summaries.
+#' Matrices and arrays are collapsed into vectors, since there is no 
+#' clear way to infer which dimensions are most meaningful for data 
+#' summaries.
 #' 
-#' List elements are summarized separately, and data.frame columns are summarized separately.
+#' List elements are summarized separately, and data.frame columns 
+#' are summarized separately.
 #' 
 #' @param x A factor vector, character vector, integer vector, 
 #' logical vector, numeric vector, matrix, array, list or data frame.
 #' @param plot Logical. If TRUE, the \code{pith} is plotted.
 #' @param xname Character string describing the factor vector.
 #' @param breaks Passed to \code{\link[graphics]{hist}}.
-#' @param ... Additional arguments passed to \code{\link{plot.pith}}
-#' @return A \code{pith} class object.  A pith class object is a list.  Each element of the list 
-#' is a 3-element list, with elements:
+#' @param include.lowest Passed to \code{\link[graphics]{hist}}
+#' @param right Passed to \code{\link[graphics]{hist}}.
+#' @param ... Additional arguments passed to \code{\link{plot.pith}}.
+#' @return A \code{pith} class object.  A pith class object is a list.  
+#' Each element of the list is a 3-element list, with elements:
 #' \itemize{
 #'   \item \code{xname}
 #'   \item \code{freq}
 #'   \item \code{hist}
 #'   }
-#' The \code{xname} element is the name used to identify the data when the pith is plotted.  
+#' The \code{xname} element is the name used to identify the data when 
+#' the pith is plotted.  
 #' 
-#' If the data is a character, factor, logical, or short-ranged integer, the \code{freq} element 
-#' will be a list with 5 elements:
+#' If the data is a character, factor, logical, or short-ranged integer, 
+#' the \code{freq} element will be a list with 5 elements:
 #' \itemize{
 #'   \item x a vector of the levels of the data
 #'   \item x_freq a vector of the frequencies of each level
@@ -46,8 +54,8 @@
 #' }
 #' Otherwise, the \code{freq} element will be \code{NULL}.
 #' 
-#' If the data is double-precision numeric or a long-ranged integer, the \code{hist} element will 
-#' be a list with 5 elements:
+#' If the data is double-precision numeric or a long-ranged integer, 
+#' the \code{hist} element will be a list with 5 elements:
 #' \itemize{
 #'   \item hist a histogram class object
 #'   \item NA_freq the frequency of \code{NA} or \code{NaN}
@@ -112,7 +120,9 @@ pith <- function(x, ...) UseMethod("pith")
 
 #' @rdname pith
 #' @export
-pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges",  ...) {
+pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                        breaks = "Sturges", include.lowest = TRUE, 
+                        right = TRUE, ...) {
   
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
@@ -149,43 +159,63 @@ pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Stu
 
 #' @rdname pith
 #' @export
-pith.character <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
+pith.character <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                           breaks = "Sturges", include.lowest = TRUE, 
+                           right = TRUE, ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
   }
-  pith(factor(x), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
+  pith(factor(x), freq = freq, plot = plot, xname = xname, 
+       breaks = breaks, include.lowest = include.lowest, 
+       right = right, ...)
 }
 
 #' @rdname pith
 #' @export
-pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
+pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                         breaks = "Sturges", include.lowest = TRUE, 
+                         right = TRUE, ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
   }
   
   if (all(is.na(x))) {
-    pith(factor(x), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
+    pith(factor(x), freq = freq, plot = plot, xname = xname, 
+         breaks = breaks, include.lowest = include.lowest, 
+         right = right, ...)
   } else {
     if (diff(range(x, na.rm = TRUE)) > 25) {
-      pith(as.numeric(x), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
+      pith(as.numeric(x), freq = freq, plot = plot, xname = xname, 
+           breaks = breaks, include.lowest = include.lowest, 
+           right = right, ...)
     } else {
-      pith(factor(x, levels = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE))), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
+      pith(factor(
+        x, 
+        levels = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE))), 
+        freq = freq, plot = plot, xname = xname, breaks = breaks, 
+        include.lowest = include.lowest, right = right, ...)
     }
   }
 }
 
 #' @rdname pith
 #' @export
-pith.logical <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
+pith.logical <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                         breaks = "Sturges", include.lowest = TRUE, 
+                         right = TRUE, ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
   }
-  pith(factor(x, levels = c("TRUE", "FALSE")), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
+  pith(factor(x, levels = c("TRUE", "FALSE")), 
+       freq = freq, plot = plot, xname = xname, breaks = breaks, 
+       include.lowest = include.lowest, right = right, ...)
 }
 
 #' @rdname pith
 #' @export
-pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
+pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                         breaks = "Sturges", include.lowest = TRUE, 
+                         right = TRUE, ...) {
   
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
@@ -215,7 +245,9 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "St
     histargs <- list(
       x = xfinite,
       plot = FALSE,
-      breaks = breaks)
+      breaks = breaks,
+      include.lowest = include.lowest,
+      right = right)
     
     xhist <- do.call(
       graphics::hist,
@@ -246,7 +278,9 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "St
 
 #' @rdname pith
 #' @export
-pith.matrix <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
+pith.matrix <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                        breaks = "Sturges", include.lowest = TRUE, 
+                        right = TRUE, ...) {
   
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
@@ -254,7 +288,9 @@ pith.matrix <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Stu
   
   xname <- paste0("as.vector(", xname, ")")
   
-  pith(as.vector(x), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
+  pith(as.vector(x), freq = freq, plot = plot, xname = xname, 
+       breaks = breaks, include.lowest = include.lowest, 
+       right = right, ...)
   
 }
 
@@ -264,17 +300,26 @@ pith.array <- pith.matrix
 
 #' @rdname pith
 #' @export
-pith.list <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
+pith.list <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                      breaks = "Sturges", include.lowest = TRUE, 
+                      right = TRUE, ...) {
   lpith <- list()
   
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
   }
   
-  xname <- paste0(xname, "[[", ifelse(names(x) == "", seq_along(x), paste0("'",names(x), "'")), "]]")
+  xname <- paste0(xname, "[[", 
+                  ifelse(
+                    names(x) == "", 
+                    seq_along(x), 
+                    paste0("'",names(x), "'")), 
+                  "]]")
   
   for (i in seq_along(x)) {
-    lpith[[i]] <- pith(x[[i]], freq = freq, plot = plot, xname = xname[i], breaks = breaks, ...)[[1]]
+    lpith[[i]] <- pith(x[[i]], freq = freq, plot = plot, xname = xname[i], 
+                       breaks = breaks, include.lowest = include.lowest, 
+                       right = right, ...)[[1]]
   }
   
   
@@ -283,9 +328,13 @@ pith.list <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturg
 
 #' @rdname pith
 #' @export
-pith.data.frame <- function(x, freq = TRUE, plot = TRUE, xname = NULL, breaks = "Sturges", ...) {
+pith.data.frame <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                            breaks = "Sturges", include.lowest = TRUE, 
+                            right = TRUE, ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
   }
-  pith(as.list(x), freq = freq, plot = plot, xname = xname, breaks = breaks, ...)
+  pith(as.list(x), freq = freq, plot = plot, xname = xname, 
+       breaks = breaks, include.lowest = include.lowest, 
+       right = right, ...)
 }

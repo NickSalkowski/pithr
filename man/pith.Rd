@@ -16,56 +16,61 @@
 pith(x, ...)
 
 \method{pith}{factor}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
 \method{pith}{character}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
 \method{pith}{integer}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
 \method{pith}{logical}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
 \method{pith}{numeric}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
 \method{pith}{matrix}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
 \method{pith}{array}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
 \method{pith}{list}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
 \method{pith}{data.frame}(x, freq = TRUE, plot = TRUE, xname = NULL,
-  breaks = "Sturges", ...)
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 }
 \arguments{
 \item{x}{A factor vector, character vector, integer vector,
 logical vector, numeric vector, matrix, array, list or data frame.}
 
-\item{...}{Additional arguments passed to \code{\link{plot.pith}}}
+\item{...}{Additional arguments passed to \code{\link{plot.pith}}.}
 
 \item{plot}{Logical. If TRUE, the \code{pith} is plotted.}
 
 \item{xname}{Character string describing the factor vector.}
 
 \item{breaks}{Passed to \code{\link[graphics]{hist}}.}
+
+\item{include.lowest}{Passed to \code{\link[graphics]{hist}}}
+
+\item{right}{Passed to \code{\link[graphics]{hist}}.}
 }
 \value{
-A \code{pith} class object.  A pith class object is a list.  Each element of the list
-is a 3-element list, with elements:
+A \code{pith} class object.  A pith class object is a list.
+Each element of the list is a 3-element list, with elements:
 \itemize{
   \item \code{xname}
   \item \code{freq}
   \item \code{hist}
   }
-The \code{xname} element is the name used to identify the data when the pith is plotted.
+The \code{xname} element is the name used to identify the data when
+the pith is plotted.
 
-If the data is a character, factor, logical, or short-ranged integer, the \code{freq} element
-will be a list with 5 elements:
+If the data is a character, factor, logical, or short-ranged integer,
+the \code{freq} element will be a list with 5 elements:
 \itemize{
   \item x a vector of the levels of the data
   \item x_freq a vector of the frequencies of each level
@@ -75,8 +80,8 @@ will be a list with 5 elements:
 }
 Otherwise, the \code{freq} element will be \code{NULL}.
 
-If the data is double-precision numeric or a long-ranged integer, the \code{hist} element will
-be a list with 5 elements:
+If the data is double-precision numeric or a long-ranged integer,
+the \code{hist} element will be a list with 5 elements:
 \itemize{
   \item hist a histogram class object
   \item NA_freq the frequency of \code{NA} or \code{NaN}
@@ -87,24 +92,28 @@ be a list with 5 elements:
 Otherwise, the \code{hist} element will be \code{NULL}.
 }
 \description{
-The generic function \code{pith} computes a summary plot (or plots) of
-the given data.  If \code{plot = TRUE}, a \code{pith} class object is plotted before
-it is returned.
+The generic function \code{pith} computes a summary
+plot (or plots) of the given data.  If \code{plot = TRUE}, a
+\code{pith} class object is plotted before it is returned.
 }
 \details{
-On definition of \code{pith} is "the essence of something", and \code{pith} is
-also a verb that means "to remove the pith".  So, the purpose of \code{pith} is to
-"remove the essence" of some collection of data, and generate a plot.
+On definition of \code{pith} is "the essence of something", and
+\code{pith} is also a verb that means "to remove the pith".  So,
+the purpose of \code{pith} is to "remove the essence" of some
+collection of data, and generate a plot.
 
-All piths are based on the frequencies of data values, including \code{NA} values.
-A double-precision numeric pith will be a histogram.  Factor, character, and logical
-piths will be barplots of frequencies.  Integer piths will produce barplots when the
-range of integer values is 25 or less, and histograms otherwise.
+All piths are based on the frequencies of data values, including
+\code{NA} values. A double-precision numeric pith will be a histogram.
+Factor, character, and logical piths will be barplots of frequencies.
+Integer piths will produce barplots when the range of integer values
+is 25 or less, and histograms otherwise.
 
-Matrices and arrays are collapsed into vectors, since there is no clear way to
-infer which dimensions are most meaningful for data summaries.
+Matrices and arrays are collapsed into vectors, since there is no
+clear way to infer which dimensions are most meaningful for data
+summaries.
 
-List elements are summarized separately, and data.frame columns are summarized separately.
+List elements are summarized separately, and data.frame columns
+are summarized separately.
 }
 \examples{
 set.seed(1234)
