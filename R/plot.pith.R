@@ -83,8 +83,10 @@ plot.pith <- function(
         ...)
       
       if (shrink & las %in% c(0, 1)) {
+        pparms <- list(...)
+        c.a <- c(pparms$cex.axis, par("cex.axis"))[1]
         for (j in seq_along(pnames)) {
-          s_width <- strwidth(pnames[j])
+          s_width <- strwidth(pnames[j], cex = c.a)
           axis(
             side = 1,
             at   = 1.2 * j - 0.5,
@@ -92,8 +94,8 @@ plot.pith <- function(
             labels = pnames[j],
             cex.axis = ifelse(
               s_width <= 1.0, 
-              par("cex"), 
-              par("cex") / s_width))
+              c.a, 
+              c.a / s_width))
         }
       } else {
         axis(side = 1, at = bp, labels = pnames, las = las, tick = FALSE)
