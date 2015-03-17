@@ -70,13 +70,13 @@ pith(XNA, freq = FALSE)
 
 ### **dplyr** functionality
 
-**pithr** provides a set of **dplyr** helper functions for **pithy()**.  **filter_pithy()** filters a data set, generates the plots, then returns the original pre-filter data set.  **select_pithy()**, **mutate_pithy()**, and **transmute_pithy** do the same thing for **select()**, **mutate()**, and **transmute()**, repectively.  These functions are intended to facilitate inserting short plotting detours into a chained **dplyr** expression, without changing the overall result.  Oh, and since I'm not a big fan of typing, **f_pithy()**, **s_pithy()**, **m_pithy()**, and **t_pithy()** do the same things, but with less typing.
+**pithr** provides a set of **dplyr** helper functions for **pithy()**.  **filter_pithy()** filters a data set, generates the plots, then returns the original pre-filter data set.  **select_pithy()**, **mutate_pithy()**, and **transmute_pithy** do the same thing for **select()**, **mutate()**, and **transmute()**, repectively.  These functions are intended to facilitate inserting short plotting detours into a chained **dplyr** expression, without changing the overall result.
 
 ```
 iris %>%
   tbl_df %>%
-  s_pithy(Petal.Width) %>%
-  t_pithy(SL2 = Sepal.Length^2)
+  select_pithy(Petal.Width) %>%
+  transmute_pithy(SL2 = Sepal.Length^2)
 ```
 Which is similar to:
 
