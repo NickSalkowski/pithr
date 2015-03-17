@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.pith.R
 \name{plot.pith}
 \alias{plot.pith}
-\title{Plot a \code{pith} class object}
+\title{Plot a pith class object}
 \usage{
 \method{plot}{pith}(x, freq = TRUE, main = NULL, xlab = NULL,
   ylab = NULL, col = c("#619CFF", "#F8766D"), border = NA, las = 1,
@@ -11,7 +11,8 @@
 \arguments{
 \item{x}{A pith.}
 
-\item{freq}{Logical.  If \code{TRUE}, frequencies will be plotted instead of proportions or densities.}
+\item{freq}{Logical.  If \code{TRUE}, frequencies will be plotted instead of
+proportions or densities.}
 
 \item{main}{Character string. Main title, default is \code{x$xname}}
 
@@ -19,13 +20,19 @@
 
 \item{ylab}{Character string. Y-axis label.}
 
-\item{col}{Character vector.  Up to two fill colors may be specified, the first for the nonmissing data bars and the second for the NA bar.  If only one color is specified it will be used for all bars.}
+\item{col}{Character vector.  Up to two fill colors may be specified, the
+first for the nonmissing data bars and the second for the NA bar.  If only
+one color is specified it will be used for all bars.}
 
-\item{border}{Character vector.  Up to two border colors may be specified, the first for the nonmissing data bars and the second for the NA bar.  If only one color is specified it will be used for all bars.}
+\item{border}{Character vector.  Up to two border colors may be specified,
+the first for the nonmissing data bars and the second for the NA bar.  If
+only one color is specified it will be used for all bars.}
 
-\item{las}{numeric in {0, 1, 2, 3}. Axis label style.  See \code{\link[graphics]{par}}}
+\item{las}{numeric in {0, 1, 2, 3}. Axis label style.  See
+\code{\link[graphics]{par}}}
 
-\item{shrink}{Logical.  If TRUE, factor labels will shrink to fit the width of the bar.  Ignored
+\item{shrink}{Logical.  If TRUE, factor labels will shrink to fit the width
+of the bar.  Ignored
 if \code{las} is either 2 or 3.}
 
 \item{...}{Additional plot parameters.}
@@ -34,6 +41,6 @@ if \code{las} is either 2 or 3.}
 \code{NULL}, invisibly.
 }
 \description{
-Plot a \code{pith} class object
+Plot a pith class object
 }
 
