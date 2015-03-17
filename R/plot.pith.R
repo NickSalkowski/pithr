@@ -12,7 +12,6 @@
 #' @param border Character vector.  Up to two border colors may be specified,
 #' the first for the nonmissing data bars and the second for the NA bar.  If
 #' only one color is specified it will be used for all bars.
-#' @param las numeric in {0, 1, 2, 3}. Axis label style.  See
 #' \code{\link[graphics]{par}}
 #' @param shrink Logical.  If TRUE, factor labels will shrink to fit the width
 #' of the bar.  Ignored 
@@ -30,12 +29,16 @@ plot.pith <- function(
   ylab = NULL,
   col = c("#619CFF", "#F8766D"),
   border = NA,
-  las = 1,
   shrink = TRUE,
   ...) {
 
   col <- rep(col, length.out = 2)
   border <- rep(border, length.out = 2)
+  
+  pparms <- list(...)
+  pp.las <- c(pparms$las, par("las"))[1]
+  pp.cex.axis <- c(pparms$cex.axis, par("cex.axis"))[1]
+  
 
   for (i in seq_along(x)) {
 
@@ -86,14 +89,11 @@ plot.pith <- function(
         ylab = ylab,
         col = pcol,
         border = pborder,
-        las = las,
         ...)
 
-      if (shrink & las %in% c(0, 1)) {
-        pparms <- list(...)
-        c.a <- c(pparms$cex.axis, par("cex.axis"))[1]
+      if (shrink & pp.las %in% c(0, 1)) {
         for (j in seq_along(pnames)) {
-          s_width <- strwidth(pnames[j], cex = c.a)
+          s_width <- strwidth(pnames[j], cex = pp.cex.axis)
           axis(
             side = 1,
             at   = 1.2 * j - 0.5,
@@ -101,19 +101,16 @@ plot.pith <- function(
             labels = pnames[j],
             cex.axis = ifelse(
               s_width <= 1.0,
-              c.a,
-              c.a / s_width))
+              pp.cex.axis,
+              pp.cex.axis / s_width))
         }
       } else {
-        axis(side = 1, at = bp, labels = pnames, las = las, tick = FALSE)
+        axis(side = 1, at = bp, labels = pnames, 
+             las = pp.las, cex.axis = pp.cex.axis, tick = FALSE)
       }
     }
 
     if (!is.null(xhist)) {
-
-      if (is.null(las)) {
-        las <- 1
-      }
 
       if (is.null(xlab)) {
         xlab <- ""
@@ -167,13 +164,12 @@ plot.pith <- function(
            xaxt = 'n',
            col = col[1],
            border = border[1],
-           las = las,
            ...)
 
       xticks <- pretty(brange)
       xticks <- xticks[which(xticks > brange[1] - 0.03 * diff(brange))]
       xticks <- xticks[which(xticks < brange[2] + 0.03 * diff(brange))]
-      axis(side = 1, at = xticks, las = las)
+      axis(side = 1, at = xticks, las = pp.las)
 
       if (n_checks > 0L) {
         rect(
@@ -188,7 +184,7 @@ plot.pith <- function(
           at = 0.5 * (check_xleft + check_xright),
           labels = c("\U00b1\nInf", "NA\nNaN")[which_checks],
           tick = FALSE,
-          las = las)
+          las = pp.las)
       }
     }
   }
