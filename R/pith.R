@@ -357,28 +357,37 @@ pith.Date <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
     xname <- deparse(substitute(x))
   }
   
-  if (breaks == "Sturges") {
-    nbreaks <- max(nclass.Sturges(x), 2)
-    xrange <- range(x, na.rm = TRUE)
-    breaks <- pretty(xrange, nbreaks)
-    breaks <- unique(breaks)
-    if (length(breaks) == 1L) {
-      xrange <- breaks + c(-1, 1)
-      breaks <- unique(pretty(xrange, nbreaks))
-    }
-    bdiff <- diff(breaks)[1]
-    while (min(breaks) > min(x, na.rm = TRUE)) {
-      xrange[1] <- xrange[1] - 0.5 * bdiff
-      breaks <- pretty(xrange, nclass.Sturges(x))
-    }
-    while (max(breaks) < max(x, na.rm = TRUE)) {
-      xrange[2] <- xrange[2] + 0.5 * bdiff
-      breaks <- pretty(xrange, nclass.Sturges(x))
-    }
-  }
-  
   xfinite <- x[which(is.finite(x))]
   
+  if (is.character(breaks)) {
+    breaks <- match.arg(
+      tolower(breaks),
+      c("sturges", "fd", "freedman-diaconis", "scott"))
+    breaks <- if (length(xfinite) == 1L) {
+      1L 
+      } else {
+        as.numeric(switch(
+          breaks,
+          sturges = grDevices::nclass.Sturges(xfinite),
+          fd      = grDevices::nclass.FD(xfinite),
+          `freedman-diaconis` = grDevices::nclass.FD(xfinite),
+          scott   = grDevices::nclass.scott(xfinite)))
+      }
+  }
+  
+  if (breaks > 1L) {
+    nbreaks <- breaks
+    xrange <- range(xfinite)
+    breaks <- pretty(xrange, nbreaks)
+    niter <- 1L
+    while(min(breaks) > min(xfinite) | 
+            max(breaks) < max(xfinite)) {
+      xrange <- xrange + c(-1, 1) * 
+        max(1, diff(range(breaks)) / 4)
+      breaks <- pretty(xrange, nbreaks)
+    }
+  }
+    
   if (length(xfinite) == 0L) {
     pargs <- list(...)
     pargs$x <- factor(x)
