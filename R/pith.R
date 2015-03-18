@@ -358,8 +358,14 @@ pith.Date <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
   }
   
   if (breaks == "Sturges") {
+    nbreaks <- max(nclass.Sturges(x), 2)
     xrange <- range(x, na.rm = TRUE)
-    breaks <- pretty(xrange, nclass.Sturges(x))
+    breaks <- pretty(xrange, nbreaks)
+    breaks <- unique(breaks)
+    if (length(breaks) == 1L) {
+      xrange <- breaks + c(-1, 1)
+      breaks <- unique(pretty(xrange, nbreaks))
+    }
     bdiff <- diff(breaks)[1]
     while (min(breaks) > min(x, na.rm = TRUE)) {
       xrange[1] <- xrange[1] - 0.5 * bdiff
