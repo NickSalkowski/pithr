@@ -166,10 +166,16 @@ plot.pith <- function(
            border = border[1],
            ...)
 
-      xticks <- pretty(brange)
+      xticks <- xhist$hist$breaks
       xticks <- xticks[which(xticks > brange[1] - 0.03 * diff(brange))]
       xticks <- xticks[which(xticks < brange[2] + 0.03 * diff(brange))]
-      axis(side = 1, at = xticks, las = pp.las)
+      if (xhist$type == "Date") {
+        axis(side = 1, at = xticks, 
+             labels = as.Date(xticks, origin = "1970-01-01"), 
+             las = pp.las)
+      } else {
+        axis(side = 1, at = xticks, las = pp.las)
+      }
 
       if (n_checks > 0L) {
         rect(
@@ -182,7 +188,11 @@ plot.pith <- function(
         axis(
           side = 1,
           at = 0.5 * (check_xleft + check_xright),
-          labels = c("\U00b1\nInf", "NA\nNaN")[which_checks],
+          labels = c("\U00b1\nInf", 
+                     ifelse(
+                       xhist$type == "Date", 
+                       "NA", 
+                       "NA\nNaN"))[which_checks],
           tick = FALSE,
           las = pp.las)
       }

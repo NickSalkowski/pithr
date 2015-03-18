@@ -2,6 +2,7 @@
 % Please edit documentation in R/pith.R
 \name{pith}
 \alias{pith}
+\alias{pith.Date}
 \alias{pith.array}
 \alias{pith.character}
 \alias{pith.data.frame}
@@ -41,10 +42,14 @@ pith(x, ...)
 
 \method{pith}{data.frame}(x, freq = TRUE, plot = TRUE, xname = NULL,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
+
+\method{pith}{Date}(x, freq = TRUE, plot = TRUE, xname = NULL,
+  breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 }
 \arguments{
 \item{x}{A factor vector, character vector, integer vector,
-logical vector, numeric vector, matrix, array, list or data frame.}
+logical vector, numeric vector, Date vector, matrix, array,
+list or data frame.}
 
 \item{...}{Additional arguments passed to \code{\link{plot.pith}}.}
 
@@ -141,6 +146,12 @@ X_numeric <- rnorm(80)
 pith(X_numeric)
 XNA_numeric <- c(X_numeric, rep(NA, 15), rep(Inf, 5))
 pith(XNA_numeric)
+
+# Date
+X_Date <- as.Date(
+  sample.int(10000, size = 100),
+  origin = "1970-01-01")
+pith(X_Date)
 
 # matrix
 X_char_matrix <- matrix(sample(c("A", "B", "B", "C", NA),

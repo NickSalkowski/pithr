@@ -26,7 +26,8 @@
 #' are summarized separately.
 #' 
 #' @param x A factor vector, character vector, integer vector, 
-#' logical vector, numeric vector, matrix, array, list or data frame.
+#' logical vector, numeric vector, Date vector, matrix, array, 
+#' list or data frame.
 #' @param plot Logical. If TRUE, the \code{pith} is plotted.
 #' @param xname Character string describing the factor vector.
 #' @param breaks Passed to \code{\link[graphics]{hist}}.
@@ -92,6 +93,12 @@
 #' pith(X_numeric)
 #' XNA_numeric <- c(X_numeric, rep(NA, 15), rep(Inf, 5))
 #' pith(XNA_numeric)
+#' 
+#' # Date
+#' X_Date <- as.Date(
+#'   sample.int(10000, size = 100),
+#'   origin = "1970-01-01")
+#' pith(X_Date)
 #' 
 #' # matrix
 #' X_char_matrix <- matrix(sample(c("A", "B", "B", "C", NA), 
@@ -262,6 +269,7 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
           freq = NULL,
           hist = list(
             hist = xhist,
+            type = "numeric",
             NA_freq = sum(is.na(x)),
             NA_prop = mean(is.na(x)),
             Inf_freq = sum(is.infinite(x)),
@@ -338,3 +346,84 @@ pith.data.frame <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
        breaks = breaks, include.lowest = include.lowest, 
        right = right, ...)
 }
+
+#' @rdname pith
+#' @export
+pith.Date <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
+                      breaks = "Sturges", include.lowest = TRUE, 
+                      right = TRUE, ...) {
+  
+  if (is.null(xname)) {
+    xname <- deparse(substitute(x))
+  }
+  
+  if (breaks == "Sturges") {
+    xrange <- range(x, na.rm = TRUE)
+    breaks <- pretty(xrange, nclass.Sturges(x))
+    bdiff <- diff(breaks)[1]
+    while (min(breaks) > min(x, na.rm = TRUE)) {
+      xrange[1] <- xrange[1] - 0.5 * bdiff
+      breaks <- pretty(xrange, nclass.Sturges(x))
+    }
+    while (max(breaks) < max(x, na.rm = TRUE)) {
+      xrange[2] <- xrange[2] + 0.5 * bdiff
+      breaks <- pretty(xrange, nclass.Sturges(x))
+    }
+  }
+  
+  xfinite <- x[which(is.finite(x))]
+  
+  if (length(xfinite) == 0L) {
+    pargs <- list(...)
+    pargs$x <- factor(x)
+    pargs$freq <- freq
+    pargs$plot <- plot
+    pargs$xname <- xname
+    pargs$breaks <- breaks
+    if ("col" %in% names(pargs)) {
+      pargs$col <- rep(pargs$col, length.out = 2)[2]
+    } else {
+      pargs$col <- "#F8766D"
+    }
+    
+    do.call(
+      pith,
+      pargs)
+    
+  } else {
+    
+    histargs <- list(
+      x = xfinite,
+      plot = FALSE,
+      breaks = breaks,
+      include.lowest = include.lowest,
+      right = right)
+    
+    xhist <- do.call(
+      graphics::hist,
+      histargs)
+    
+    xhist$xname <- xname
+    
+    npith <- structure(
+      list(
+        list(
+          xname = xname,
+          freq = NULL,
+          hist = list(
+            hist = xhist,
+            type = "Date",
+            NA_freq = sum(is.na(x)),
+            NA_prop = mean(is.na(x)),
+            Inf_freq = sum(is.infinite(x)),
+            Inf_prop = mean(is.infinite(x))))),
+      class = c("pith", "list"))
+    
+    if (plot) {
+      plot(npith, freq = freq, ...)
+    }
+    
+    invisible(npith)
+  }
+}
+
