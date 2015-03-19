@@ -30,6 +30,8 @@
 #' list or data frame.
 #' @param plot Logical. If TRUE, the \code{pith} is plotted.
 #' @param xname Character string describing the factor vector.
+#' @param freq Logical. If TRUE, plot the frequency.  If FALSE, 
+#' plot the density or proportion.
 #' @param breaks Passed to \code{\link[graphics]{hist}}.
 #' @param include.lowest Passed to \code{\link[graphics]{hist}}
 #' @param right Passed to \code{\link[graphics]{hist}}.
@@ -127,8 +129,9 @@ pith <- function(x, ...) UseMethod("pith")
 
 #' @rdname pith
 #' @export
-pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                        breaks = "Sturges", include.lowest = TRUE, 
+pith.factor <- function(x, plot = TRUE, xname = NULL, 
+                        freq = TRUE, breaks = "Sturges", 
+                        include.lowest = TRUE, 
                         right = TRUE, ...) {
   
   if (is.null(xname)) {
@@ -166,8 +169,9 @@ pith.factor <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
 
 #' @rdname pith
 #' @export
-pith.character <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                           breaks = "Sturges", include.lowest = TRUE, 
+pith.character <- function(x, plot = TRUE, xname = NULL, 
+                           freq = TRUE, breaks = "Sturges", 
+                           include.lowest = TRUE, 
                            right = TRUE, ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
@@ -179,8 +183,9 @@ pith.character <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
 
 #' @rdname pith
 #' @export
-pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                         breaks = "Sturges", include.lowest = TRUE, 
+pith.integer <- function(x, plot = TRUE, xname = NULL, 
+                         freq = TRUE, breaks = "Sturges", 
+                         include.lowest = TRUE, 
                          right = TRUE, ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
@@ -207,8 +212,9 @@ pith.integer <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
 
 #' @rdname pith
 #' @export
-pith.logical <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                         breaks = "Sturges", include.lowest = TRUE, 
+pith.logical <- function(x, plot = TRUE, xname = NULL, 
+                         freq = TRUE, breaks = "Sturges", 
+                         include.lowest = TRUE, 
                          right = TRUE, ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
@@ -220,8 +226,9 @@ pith.logical <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
 
 #' @rdname pith
 #' @export
-pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                         breaks = "Sturges", include.lowest = TRUE, 
+pith.numeric <- function(x, plot = TRUE, xname = NULL, 
+                         freq = TRUE, breaks = "Sturges", 
+                         include.lowest = TRUE, 
                          right = TRUE, ...) {
   
   if (is.null(xname)) {
@@ -286,8 +293,9 @@ pith.numeric <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
 
 #' @rdname pith
 #' @export
-pith.matrix <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                        breaks = "Sturges", include.lowest = TRUE, 
+pith.matrix <- function(x, plot = TRUE, xname = NULL, 
+                        freq = TRUE, breaks = "Sturges", 
+                        include.lowest = TRUE, 
                         right = TRUE, ...) {
   
   if (is.null(xname)) {
@@ -308,8 +316,9 @@ pith.array <- pith.matrix
 
 #' @rdname pith
 #' @export
-pith.list <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                      breaks = "Sturges", include.lowest = TRUE, 
+pith.list <- function(x, plot = TRUE, xname = NULL, 
+                      freq = TRUE, breaks = "Sturges", 
+                      include.lowest = TRUE, 
                       right = TRUE, ...) {
   lpith <- list()
   
@@ -336,8 +345,9 @@ pith.list <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
 
 #' @rdname pith
 #' @export
-pith.data.frame <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                            breaks = "Sturges", include.lowest = TRUE, 
+pith.data.frame <- function(x, plot = TRUE, xname = NULL, 
+                            freq = TRUE, breaks = "Sturges", 
+                            include.lowest = TRUE, 
                             right = TRUE, ...) {
   if (is.null(xname)) {
     xname <- deparse(substitute(x))
@@ -349,8 +359,9 @@ pith.data.frame <- function(x, freq = TRUE, plot = TRUE, xname = NULL,
 
 #' @rdname pith
 #' @export
-pith.Date <- function(x, freq = TRUE, plot = TRUE, xname = NULL, 
-                      breaks = "Sturges", include.lowest = TRUE, 
+pith.Date <- function(x, plot = TRUE, xname = NULL, 
+                      freq = TRUE, breaks = "Sturges", 
+                      include.lowest = TRUE, 
                       right = TRUE, ...) {
   
   if (is.null(xname)) {

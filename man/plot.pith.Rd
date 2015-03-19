@@ -26,14 +26,13 @@ one color is specified it will be used for all bars.}
 
 \item{border}{Character vector.  Up to two border colors may be specified,
 the first for the nonmissing data bars and the second for the NA bar.  If
-only one color is specified it will be used for all bars.
-\code{\link[graphics]{par}}}
+only one color is specified it will be used for all bars.}
 
 \item{shrink}{Logical.  If TRUE, factor labels will shrink to fit the width
 of the bar.  Ignored
 if \code{las} is either 2 or 3.}
 
-\item{...}{Additional plot parameters.}
+\item{...}{Additional plot parameters.  See \code{\link[graphics]{par}}.}
 }
 \value{
 \code{NULL}, invisibly.

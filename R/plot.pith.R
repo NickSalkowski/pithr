@@ -12,11 +12,10 @@
 #' @param border Character vector.  Up to two border colors may be specified,
 #' the first for the nonmissing data bars and the second for the NA bar.  If
 #' only one color is specified it will be used for all bars.
-#' \code{\link[graphics]{par}}
 #' @param shrink Logical.  If TRUE, factor labels will shrink to fit the width
 #' of the bar.  Ignored 
 #' if \code{las} is either 2 or 3.
-#' @param ... Additional plot parameters.
+#' @param ... Additional plot parameters.  See \code{\link[graphics]{par}}.
 #' @method plot pith
 #' @export
 #' @return \code{NULL}, invisibly.

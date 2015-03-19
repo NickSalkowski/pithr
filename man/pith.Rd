@@ -16,34 +16,34 @@
 \usage{
 pith(x, ...)
 
-\method{pith}{factor}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{factor}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{character}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{character}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{integer}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{integer}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{logical}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{logical}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{numeric}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{numeric}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{matrix}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{matrix}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{array}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{array}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{list}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{list}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{data.frame}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{data.frame}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 
-\method{pith}{Date}(x, freq = TRUE, plot = TRUE, xname = NULL,
+\method{pith}{Date}(x, plot = TRUE, xname = NULL, freq = TRUE,
   breaks = "Sturges", include.lowest = TRUE, right = TRUE, ...)
 }
 \arguments{
@@ -56,6 +56,9 @@ list or data frame.}
 \item{plot}{Logical. If TRUE, the \code{pith} is plotted.}
 
 \item{xname}{Character string describing the factor vector.}
+
+\item{freq}{Logical. If TRUE, plot the frequency.  If FALSE,
+plot the density or proportion.}
 
 \item{breaks}{Passed to \code{\link[graphics]{hist}}.}
 
