@@ -12,3 +12,5 @@ Imports:
   graphics,
   dplyr
 License: GPL>=2
+Suggests: knitr
+VignetteBuilder: knitr

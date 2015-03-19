@@ -3,3 +3,4 @@
 .RData
 .Rbuildignore
 pithr.Rproj
+inst/doc

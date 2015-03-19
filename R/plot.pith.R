@@ -185,16 +185,38 @@ plot.pith <- function(
           ytop = check_ytop,
           col = col[2],
           border = border[2])
-        axis(
-          side = 1,
-          at = 0.5 * (check_xleft + check_xright),
-          labels = c("\U00b1\nInf", 
-                     ifelse(
-                       xhist$type == "Date", 
-                       "NA", 
-                       "NA\nNaN"))[which_checks],
-          tick = FALSE,
-          las = pp.las)
+        
+        if (shrink & pp.las %in% c(0, 1)) {
+          check_labels <- c("\U00b1\nInf", 
+                            ifelse(
+                              xhist$type == "Date", 
+                              "NA", 
+                              "NA\nNaN"))[which_checks]
+          check_ticks <- 0.5 * (check_xleft + check_xright)
+          for (j in seq_along(which_checks)) {
+            s_width <- strwidth(check_labels[j], cex = pp.cex.axis)
+            axis(
+              side = 1,
+              at   = check_ticks[j],
+              tick = FALSE,
+              labels = check_labels[j],
+              cex.axis = ifelse(
+                s_width <= bdiff,
+                pp.cex.axis,
+                bdiff * pp.cex.axis / s_width))
+          }
+        } else {
+          axis(
+            side = 1,
+            at = 0.5 * (check_xleft + check_xright),
+            labels = c("\U00b1\nInf", 
+                       ifelse(
+                         xhist$type == "Date", 
+                         "NA", 
+                         "NA\nNaN"))[which_checks],
+            tick = FALSE,
+            las = pp.las)
+        }
       }
     }
   }
