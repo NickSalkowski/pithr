@@ -19,7 +19,7 @@ is, the *pith* of your data is the *essence* of your data.
 ## Installing the pithr package
 
 pithr is not available on CRAN, but it is available on GitHub.  To install 
-pithr directly from GitHub, first install the devtools package, then use `devtools::install_github`.
+pithr directly from GitHub, first install the [devtools](https://github.com/hadley/devtools) package, then use `devtools::install_github`.
 
 ```
 install.packages("devtools")
