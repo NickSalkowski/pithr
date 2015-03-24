@@ -2,7 +2,7 @@
 % Please edit documentation in R/pithy.R
 \name{pithy}
 \alias{pithy}
-\title{Generate a Pith, but return the original \code{x}}
+\title{Generate a Pith, but Return the Original Object}
 \usage{
 pithy(x, xname = NULL, ...)
 }

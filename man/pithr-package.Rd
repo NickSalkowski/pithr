@@ -12,8 +12,8 @@ Piths are simple summaries of data which include factor frequencies or a histogr
 \tabular{ll}{
 Package: \tab pithr\cr
 Type: \tab Package\cr
-Version: \tab 0.2.4\cr
-Date: \tab 2015-03-16\cr
+Version: \tab 0.2.5\cr
+Date: \tab 2015-03-24\cr
 License: \tab GPL>=2\cr
 }
 }

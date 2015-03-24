@@ -9,7 +9,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-## What is a *pith*
+## What is a *pith*?
 
 One definition of *pith* is *the essence of something*.  When used as a verb, 
 *pith* means *to remove the pith from*.  In the context of the pithr package, 
@@ -98,7 +98,7 @@ pith(X_num_NA)
 pith(X_num_NA, xname = "Numeric Vector Example", breaks = 5, las = 1)
 ```
 
-## Return
+## Pithy Returns
 
 `pith` invisibly returns a pith class object, which is a list that contains 
 summary statistics for the data.  There are some situations where it would 
@@ -109,8 +109,9 @@ function that calls `pith`, but returns the object.
 X_unif <- pithy(runif(100))
 ```
 
-This behavior is particularly handy when used with the magrittr and dplyr 
-packages.
+This behavior is particularly handy when used with the 
+[magrittr](https://github.com/smbache/magrittr) and 
+[dplyr](https://github.com/hadley/dplyr) packages.
 
 ```{r}
 library(magrittr)
@@ -135,4 +136,3 @@ iris %>%
   transmute_pithy(PLsq = Petal.Length ^ 2) %>%
   tbl_df
 ```
-

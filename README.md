@@ -1,95 +1,127 @@
-# pithr
+## What is a *pith*?
 
-Quick graphical data summaries!
+One definition of *pith* is *the essence of something*.  When used as a verb, 
+*pith* means *to remove the pith from*.  In the context of the pithr package, 
+a *pith* is a simple summary plot of the data contained in an object.  That 
+is, the *pith* of your data is the *essence* of your data.
 
-### What is pithr?
+## Installing the pithr package
 
-**pithr** is an R package built to generate quick graphical data summaries.  That is, to generate the graphical equivalent of the **summary()** function.  These summaries are called *piths*. **pithr** is intended for exploratory data analysis, debugging, or just checking that your data manipulation worked.
+pithr is not available on CRAN, but it is available on GitHub.  To install 
+pithr directly from GitHub, first install the devtools package, then use `devtools::install_github`.
 
-### Piths?
-
-*Pith*, when used as a noun, can mean *the essence of something*.  *Pith*, when used as a verb, can mean *to remove the pith*.  Since pithr is built to provide descriptive summary plots of data, the vocabulary seemed appropriate.  And *pith* is just four letters long, and I don't like unnecessary typing.
-
-### Installing **pithr**
-
-**pithr** is only available on GitHub, for now.  The easiest way is to install using the **install_github()** function in the **devtools** package:
 ```
 install.packages("devtools")
 devtools::install_github("NickSalkowski/pithr")
 ```
 
-### Using **pithr**
+## Using pithr
 
-**pithr** is designed to be easy to use.  Just provide a factor, character, logical, integer, or numeric vector to **pith()**. 
-```
+The most basic command in the pithr package is `pith`.  To generate a pith 
+plot, use the `pith` function.
+
+```{r}
 library(pithr)
 pith(iris$Sepal.Length)
 ```
-If you want proportions of densities instead of frequencies, set **freq** to **FALSE**. 
-```
-pith(iris$Sepal.Length, freq = FALSE)
+
+`pith` produces different plots depending on the type of data.
+
+```{r}
+set.seed(1234)
+X_int <- rpois(n = 100, lambda = 5)
+pith(X_int)
+X_num <- rnorm(n = 100, mean = 5, sd = sqrt(5))
+pith(X_num)
+X_char <- LETTERS[X_int]
+pith(X_char)
+X_fact <- factor(X_char)
+pith(X_fact)
+X_log <- as.logical(rbinom(100, 1, 0.625))
+pith(X_log)
+X_Date <- as.Date(
+  sample.int(10000, size = 100, replace = TRUE), 
+  origin = "1970-01-01")
+pith(X_Date)
 ```
 
-If you provide a list or data.frame to **pith()**, you will get piths for each element of the list or data.frame (as long as the elements are data vectors).  For example:
-
+Matrices and arrays are collapsed into vectors by `pith`.  
+```{r}
+X_mat <- matrix(
+  rpois(400, 100),
+  ncol = 20)
+pith(X_mat)
 ```
-pith(iris)
+
+If `pith` is given a list or data.frame, each element or column is summarized separately.
+
+```{r}
+pith(cars)
 ```
 
-**pith()** has arguments **col** and **border** that let you specify colors for the plot.  You can specify a different color or border for the bar associate with **NA** values if you want.
+So, `pith` handles a wide variety of data types and structures, producing frequency plots or histograms, depending on the data itself.
 
-If you want the **pith** object without the plot, just set **plot** equal to **FALSE**.
+## Non-Finite Values
 
+`pith` separates non-finite values, and presents their frequencies separately.
+```{r}
+X_char_NA <- c(X_char, rep(NA, 25))
+pith(X_char_NA)
+X_num_NA <- c(X_num, 
+              rep(c(-Inf, Inf), times = c(5, 10)),
+              rep(c(NaN, NA), times = c(15, 20)))
+pith(X_num_NA)
 ```
-iris_pith <- pith(iris, plot = FALSE)
-```
-### **pithy()**
 
-**pithy()** is a function that generates the same plots as **pith()** (as long as plot = TRUE, of course), but instead of returning a **pith**, it returns the original data.  So, pithy may actually be more useful, since it can be added expressions without changing the results.  This could be useful when using chained expressions with the **dplyr** or **magrittr** packages.
+## Arguments
 
+`pith` accepts several arguments that help control the plot.
+
+- plot If TRUE, a plot is produced.
+- xname The "name" of the data.  This is used to produce the main plot title.
+- breaks, include.lowest, right These arguments are passed to the `hist` 
+  function, if a histogram is produced.
+- ... Additional plot arguments.
+
+```{r}
+pith(X_num_NA, xname = "Numeric Vector Example", breaks = 5, las = 1)
 ```
-head(pithy(cars))
+
+## Pithy Returns
+
+`pith` invisibly returns a pith class object, which is a list that contains 
+summary statistics for the data.  There are some situations where it would 
+be useful to return the data object inself, instead.  `pithy` is a convenience 
+function that calls `pith`, but returns the object.
+
+```{r}
+X_unif <- pithy(runif(100))
+```
+
+This behavior is particularly handy when used with the 
+[magrittr](https://github.com/smbache/magrittr) and 
+[dplyr](https://github.com/hadley/dplyr) packages.
+
+```{r}
+library(magrittr)
+X_gamma <- rgamma(100, 2, 2) %>%
+  pithy
 library(dplyr)
 iris %>%
-  tbl_df %>%
-  select(Sepal.Length, Species) %>%
+  select(Sepal.Length) %>%
   pithy %>%
-  filter(Species == 'virginica')   
+  transmute(SLsq = Sepal.Length ^ 2) %>%
+  pith
 ```
 
-### **NA** Values
+pithr also contains helper functions `filter_pithy`, `select_pithy`, 
+`mutate_pithy`, and `transmute_pithy` that filter, select, mutate, and 
+transmute data sets before calling `pithy`.  Just like `pithy`, they 
+return the original data set (before any filtering, selecting, or mutating).
 
-One of the important features of **pith()** is that it handles missing values, when they are present.  The proportions or densities are scaled to take into account the proportion of **NA** values in the data.
-
-```
-X <- rnorm(80)
-pith(X, freq = FALSE)
-XNA <- c(X, rep(NA, 20))
-pith(XNA, freq = FALSE)
-```
-
-### **dplyr** functionality
-
-**pithr** provides a set of **dplyr** helper functions for **pithy()**.  **filter_pithy()** filters a data set, generates the plots, then returns the original pre-filter data set.  **select_pithy()**, **mutate_pithy()**, and **transmute_pithy** do the same thing for **select()**, **mutate()**, and **transmute()**, repectively.  These functions are intended to facilitate inserting short plotting detours into a chained **dplyr** expression, without changing the overall result.
-
-```
+```{r}
 iris %>%
-  tbl_df %>%
-  select_pithy(Petal.Width) %>%
-  transmute_pithy(SL2 = Sepal.Length^2)
+  select_pithy(Petal.Length) %>%
+  transmute_pithy(PLsq = Petal.Length ^ 2) %>%
+  tbl_df
 ```
-Which is similar to:
-
-```
-library(magrittr)
-iris %>% tbl_df %T>% {
-  select(., Petal.Width) %>%
-  pith} %T>% {
-  transmute(., SL2 = Sepal.Length^2) %>% pith}
-```
-
-Note, I haven't figured out how to make **pith()** pay attention to any grouping variables in a tbl_df, yet.
-
-### Base Graphics???
-
-**ggplot2** is great, but I'm a lot more familiar with using base graphics, so I used base graphics.  Since **pithr** is meant for generating plots for *exploration* and *debugging*, beauty wasn't a high priority.
