@@ -1,8 +1,8 @@
 Package: pithr
 Type: Package
 Title: Produce quick graphical data summaries!
-Version: 0.2.4
-Date: 2015-03-16
+Version: 0.2.5
+Date: 2015-03-24
 Author: Nick Salkowski
 Maintainer: Nick Salkowski <nicksalkowskiphd@gmail.com>
 Description: Piths are simple summaries of data which include factor frequencies or a histogram as well as a frequency of NA, if applicable.

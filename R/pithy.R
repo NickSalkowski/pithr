@@ -1,4 +1,4 @@
-#' @title Generate a Pith, but return the original \code{x}
+#' @title Generate a Pith, but Return the Original Object
 #' 
 #' @description \code{pithy} calls \code{\link{pith}}, but returns 
 #' the original data, rather than a \code{pith} class object.
