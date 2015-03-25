@@ -35,7 +35,7 @@ transmute_pithy <- function(.data, ..., .pithargs = list()) {
   
   transmuteargs <- deparse(substitute(list(...)))
   xname <- paste0(
-    "transmute_(", 
+    "transmute(", 
     xname, 
     ", ", 
     substr(transmuteargs, 6, nchar(transmuteargs)), 
